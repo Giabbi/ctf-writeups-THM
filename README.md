@@ -1,8 +1,8 @@
 # TryHackMe CTF Writeups
 
-Welcome to my **TryHackMe CTF Writeups** repository! 🎉
+Benvenuti to my **TryHackMe CTF Writeups** repository! 🎉
 
-This repository contains detailed writeups for Capture The Flag (CTF) challenges on [TryHackMe](https://tryhackme.com). Each writeup is designed to document my learning process, methodologies, and solutions while solving various challenges. 
+This repository contains detailed writeups for Capture The Flag (CTF) challenges on [TryHackMe](https://tryhackme.com). Each writeup is designed to document my learning process, methodologies, and solutions while solving various challenges.
 
 ---
 
@@ -11,6 +11,7 @@ This repository contains detailed writeups for Capture The Flag (CTF) challenges
 - Insights into cybersecurity concepts like XSS, SQL injection, network exploitation, and more.
 - Useful payloads, tools, and techniques applied during the challenges.
 - Key takeaways and lessons learned.
+- Some Italian stuff (bisogna portare avanti il tricolore 🇮🇹)
 
 ---
 
@@ -23,7 +24,7 @@ Each writeup follows this structure:
    - Step-by-step walkthrough of the challenge.
    - Screenshots and payloads where applicable.
 4. **Key Learnings**: What I learned or improved upon during the challenge.
-5. **Conclusion**: Final thoughts on the challenge.
+5. **Conclusion**: Final thoughts on the challenge, and the aforementioned Italian stuff (evviva!) 
 
 ---
 
@@ -54,4 +55,4 @@ This repository is licensed under the [MIT License](LICENSE). Feel free to use t
 
 ---
 
-**Stay curious and keep hacking! 🔒💻**
+**Hackerate miei amici, e portate in alto il nome del Gabibo! 🔒💻**
