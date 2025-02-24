@@ -16,4 +16,23 @@ Can you decrypt the secrets and get RCE on the system?
     - [Can you hear that? It's an oracle talking! (second flag)](#flag2)
 - [Acknowledgements](#acknowledgements)
 - [What did we learn? (Spoiler: a lot!)](#end)
+---
 
+## Walkthrough
+
+### Exploring The Application
+Alright Amici mei, let's dive in! 
+<br>
+The first thing I did, as always, is running nmap on the target machine. Weirdly enough, the only thing I found was an ssh service running on port 22, meaning that just googling ```http://MACHINE_IP``` won't do anything. <br><br>
+After banging my head for a while I decided to scan <b>ALL</b> the ports with 
+```bash 
+nmap [MACHINE_IP]1-65535 -T4
+``` 
+to see if I could find anything useful. After an espresso or two, it finally popped up: an http server running on port 1337 (why THM?). After going to ```http://MACHINE_IP:1337``` we can finally start the challenge.
+
+### The API.js file
+Once we land on the page, we can see two login forms, one that requires a username and an invite code, and the other requires an email instad of the username. Another interesting thing was the API documentation page, which you can find in the footer of the login page, but unfortunately this is password protected. 
+<br><br>
+After digging into the source code of the page I found an interesting file, API.js.
+<br>[Image]<br>
+The code in this file seems obfuscated, but since we don't really have anything else to work with it is worth a shot to make sense of it!
