@@ -34,5 +34,13 @@ to see if I could find anything useful. After an espresso or two, it finally pop
 Once we land on the page, we can see two login forms, one that requires a username and an invite code, and the other requires an email instad of the username. Another interesting thing was the API documentation page, which you can find in the footer of the login page, but unfortunately this is password protected. 
 <br><br>
 After digging into the source code of the page I found an interesting file, API.js.
-<br>[Image]<br>
+<br>[API.js file](images/API.png)<br>
 The code in this file seems obfuscated, but since we don't really have anything else to work with it is worth a shot to make sense of it!
+<br><br>
+After looking at the code, I decided to do what any sane person would, put a few console.log statement into the file (or is should say, a copy of it I saved on my computer) and then ran it with ```node``` 
+<br>
+In particular, at the end a constant c is initialized by calling a bunch of functions, so I decided to print that by adding the following line to the end of the script:
+```javascript
+console.log(c)
+```
+This results in the following string:
