@@ -1,4 +1,3 @@
-# This write up is work in progress! Come back later, and in the meantime eat some pasta (no Olive Garden Plz)
 # Decryptify - Full Writeup and Walkthrough
 ## Challenge Description
 Start the VM by clicking the Start Machine button at the top right of the task. You can complete the challenge by connecting through the VPN or the AttackBox, which contains all the essential tools.
@@ -7,15 +6,15 @@ Can you decrypt the secrets and get RCE on the system?
 
 ## Table of Contents
 - [Walkthrough](#Walkthrough)
-    - [Exploring The Application](#Exploring)
-    - [The API.js file](#api.js)
-    - [API documentation, a dead end?](#dead-end)
-    - [Enumerating with ffuf: there's hope!](#hope)
-    - [Accessing the user account, first flag!](#flag1)
-    - [The real decryption problem](#problem)
-    - [Can you hear that? It's an oracle talking! (second flag)](#flag2)
-- [What did we learn? (Spoiler: a lot!)](#end)
-- [Acknowledgements and resources](#acknowledgements)
+    - [Exploring The Application](#Exploring-The-Application)
+    - [The API.js file](#The-APIjs-file)
+    - [API documentation, a dead end?](#API-documentation-a-dead-end?)
+    - [Enumerating with ffuf: there's hope!](#Enumerating-with-ffuftheres-hope!)
+    - [Accessing the user account, first flag!](#Accessing-the-user-account-first-flag)
+    - [The real decryption problem](#The-real-decryption-problem)
+    - [Can you hear that? It's an oracle talking! (second flag)](#Can-you-hear-that-Its-an-oracle-talking-second-flag)
+- [What did we learn? (Spoiler: a lot!)](#What-did-we-learn-Spoiler-a-lot)
+- [Acknowledgements and resources](#Acknowledgements-and-resources)
 ---
 
 ## Walkthrough
@@ -31,13 +30,13 @@ nmap [MACHINE_IP]1-65535 -T4
 to see if I could find anything useful. After an espresso or two, it finally popped up: an http server running on port 1337 (why THM?). After going to ```http://MACHINE_IP:1337``` we can finally start the challenge.
 
 ### The API.js file
-Once we land on the page, we can see two login forms, one that requires a username and an invite code, and the other requires an email instad of the username. Another interesting thing was the API documentation page, which you can find in the footer of the login page, but unfortunately this is password protected. 
+Once we land on the page, we can see two login forms, one that requires a username and an invite code, and the other requires an email instead of the username. Another interesting thing was the API documentation page, which you can find in the footer of the login page, but unfortunately this is password protected. 
 <br><br>
 After digging into the source code of the page I found an interesting file, API.js.
 <br>![API.js file](images/API.png)<br>
 The code in this file seems obfuscated, but since we don't really have anything else to work with it is worth a shot to make sense of it!
 <br><br>
-After looking at the code, I decided to do what any sane person would, put a few console.log statement into the file (or is should say, a copy of it I saved on my computer) and then ran it with ```node``` 
+After looking at the code, I decided to do what any sane person would, put a few console.log statement into the file (or I should say, a copy of it I saved on my computer) and then ran it with ```node``` 
 <br>
 In particular, at the end a constant c is initialized by calling a bunch of functions, so I decided to print that by adding the following line to the end of the script:
 ```javascript
@@ -50,13 +49,42 @@ This results in the following string:
 For fun, I tried plugging it into the API login and what do you know, it was the password!
 
 ### API documentation, a dead end?
-The first thing we see once in the api.php page is some php code that, most likely, is being used in the backend to generate the invite_code for a certain email. Here it is for you convenience:
+The first thing we see once in the api.php page is some php code that, most likely, is being used in the backend to generate the invite_code for a certain email. Here it is for your convenience:
 ```php
 // Token generation example
 function calculate_seed_value($email, $constant_value) {
     $email_length = strlen($email);
     $email_hex = hexdec(substr($email, 0, 8));
     $seed_value = hexdec($email_length + $constant_value + $email_hex);
++-------------------------------------------+
+| PadBuster - v0.3.3                        |
+| Brian Holyfield - Gotham Digital Science  |
+| labs@gdssecurity.com                      |
++-------------------------------------------+
+
+INFO: The original request returned the following
+[+] Status: 200
+[+] Location: N/A
+[+] Content Length: 1349
+
+INFO: Starting PadBuster Encrypt Mode
+[+] Number of Blocks: 4
+
+INFO: No error string was provided...starting response analysis
+
+*** Response Analysis Complete ***
+
+The following response signatures were returned:
+
+-------------------------------------------------------
+ID#     Freq    Status  Length  Location
+-------------------------------------------------------
+1       1       200     1324    N/A
+2 **    255     400     1411    N/A
+-------------------------------------------------------
+
+Enter an ID that matches the error condition
+NOTE: The ID# marked with ** is recommended : 2
 
     return $seed_value;
 }
@@ -128,7 +156,7 @@ Armed with both constant and email, it is finally time to create our own invite 
 
 function calculate_seed_value($email, $constant_value) {
     $email_length = strlen($email);
-    $email_hex = hexdec(substr($email, 0, 8));
+    $email_hex = hinstadexdec(substr($email, 0, 8));
     $seed_value = hexdec($email_length + $constant_value + $email_hex);
 
     return $seed_value;
@@ -169,7 +197,7 @@ The vulnerability I am about to use is called <b>padding oracle</b>, and it abus
 
 To check if this is actually a padding oracle (and not Nonna's lasagna giving me allucinations) we can use a tool called ```padbuster```, here is the command to use to decrypt the value:
 ```bash
-padbuster "http://[MACHINE_IP]:1337/dashboard.php" "[Encrypted value]" 8 -encoding 0 -cookies "PHPSESSID=[YOUR_COOKIE]; role=[YOUR COOKIE]"
+padbuster "http://[MACHINE_IP]:1337/dashboard.php?date=[ENCRYPTED_VALUE]" "[ENCRYPTED_VALUE]" 8 -encoding 0 -cookies "PHPSESSID=[YOUR_COOKIE]; role=[YOUR_COOKIE]"
 ```
 Note that you can get the cookies by just looking at your browser's network tab or with tools like burp suite. Anyways, here is what padbuster will spit out first:
 ```
@@ -209,4 +237,46 @@ After letting it run for a bit (and it will run for a bit), we will finally see 
 ```bash
 date +%Y
 ```
-If you are a little rusty on linux commands, that returns the current year of the machine, which at the time of writing is 2025. This means that the backend executes 
+If you are a little rusty on linux commands, that returns the current year of the machine, which at the time of writing is 2025. This means that the backend executes whichever command we send with that form, provided that it is encrypted correctly. Here is the RCE that was mentioned in the prompt!
+
+Lucky for us, padbuster also has an encrypt function, which we can use to send our own payload. Since we know the location of the second flag (the second question mentions it is in ```/home/ubuntu```), we can use the following command:
+```bash
+cat /home/ubuntu/flag.txt
+```
+Additionally, we will need the ciphertext from the output we got on the decrypt from padbuster. In particular, we want the ciphertext in hexadecimal of the block containing the ```date``` command. This is <b>not</b> essential but it will make padbuster run faster. The final command will look something like this: 
+```bash
+padbuster "http://10.10.125.169:1337/dashboard.php?date=[ENCRYPTED_DATE_COMMAND]" \
+"[ENCRYPTED_DATE_COMMAND]" 8 -encoding 0 \
+-plaintext "cat /home/ubuntu/flag.txt" \
+-ciphertext [CIPHER_FROM_DECRYPT_OUTPUT] \
+-cookies "PHPSESSID=[YOUR_COOKIE]"
+```
+Once we run it, another prompt is going to appear to ask us which response signature we need to consider, just like when we decrypted. Choose the option that padbuster recommends, which is usually the second one. And now, since you probably ran out of espresso, go grab a cappuccino. This will take a while to fully run.
+
+Once it is over, we will get a fresh ciphertext already encoded in base64. This is now ready to be sent in that hidden form. If you did everything correctly, you should see the flag popping up where the footer is!
+
+## What did we learn? (Spoiler, a lot!)
+I have to admit, this was quite the journey, and as such there are a few takeaways to learn:
+- <b>Backend and Frontend should be used properly:</b> the first problem with this app was that a file, namely API.js, that was supposed to be on the backend, was on the frontend instead. Allowing us to bypass the authentication for the API documentation
+- <b>Keep your logs in your pants:</b> logs should be safely stored on your backend and not be visible by the user. As we saw earlier, this can lead to information leaks.
+- <b>Don't be too specific with your errors:</b> probably the biggest one for this challenge, errors should not reveal to the end user how your whole backend works. If it does, threat actors (like us) can use it to understand the logic behind that code, and then break it.
+
+The main vulnerability in this program was (arguably) the padding oracle attack. But how does this work?
+
+Padding Oracle attacks exploit a loose-lipped encryption system that tells us when we mess up. Normally, when a server decrypts a message, it removes padding (extra bytes added to make the message fit into a block). If the padding is incorrect, a properly configured system should give a generic error. But some systems? Oh, no. They spill the beans by throwing a specific padding error. And that, my friend, gives us the power to manipulate encrypted data bit by bit—until we completely break it.
+
+
+![CBC multiblock](images/_cbc-dec-multiblock.png)
+
+
+Let’s visualize it: Imagine a message split into blocks like [C1] [C2] [C3], where each block is encrypted separately but depends on the previous one (because CBC mode chains them together). Now, let’s say we only have the ciphertext (not the key). If we change just the last byte of [C2] and send it to the server, it decrypts it and checks the padding. If the padding is valid, we know our guess was correct. If not? We tweak it again and keep adjusting byte by byte, using the errors as a guide until we decrypt the entire block. Rinse and repeat, and suddenly we have full decryption and even the ability to encrypt our own data (which is exactly what we did with PadBuster!).
+
+## Acknowledgements and resources
+Huge grazie to Brian Holyfield for developing padbuster, such an amazing and cool tool! Check out more about it [here](https://cyber.aon.com/aon_cyber_labs/automated-padding-oracle-attacks-with-padbuster/)
+
+If you are still interested in cryptography and padding oracles check out these resources:
+- [Introduction to DES](https://cyber.aon.com/aon_cyber_labs/automated-padding-oracle-attacks-with-padbuster/)
+- [Introduction to AES](https://www.geeksforgeeks.org/advanced-encryption-standard-aes/)
+- [Padding oracle in depth](https://www.nccgroup.com/us/research-blog/cryptopals-exploiting-cbc-padding-oracles/)
+
+That's it for this writeup Amici miei! Remember to stay caffainated and that the Gabibo is always watching 👁️
