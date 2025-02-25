@@ -4,6 +4,8 @@ Start the VM by clicking the Start Machine button at the top right of the task. 
 
 Can you decrypt the secrets and get RCE on the system? 
 
+<i>You can find the full challenge at the following link: [TryHackMe Decryptify](https://tryhackme.com/room/decryptify)</i>
+
 ## Table of Contents
 - [Walkthrough](#Walkthrough)
     - [Exploring The Application](#Exploring-The-Application)
