@@ -16,15 +16,14 @@ This repository contains detailed writeups for Capture The Flag (CTF) challenges
 ---
 
 ## 📜 Structure of Writeups
-Each writeup follows this structure:
+Each writeup follows this structure (and more):
 
 1. **Introduction**: A brief description of the challenge and its objectives.
-2. **Environment Setup**: Details of the tools and configurations used.
-3. **Steps to Solve**:
+2. **Steps to Solve**:
    - Step-by-step walkthrough of the challenge.
    - Screenshots and payloads where applicable.
-4. **Key Learnings**: What I learned or improved upon during the challenge.
-5. **Conclusion**: Final thoughts on the challenge, and the aforementioned Italian stuff (evviva!) 
+3. **Key Learnings**: What I learned or improved upon during the challenge.
+4. **Conclusion**: Final thoughts on the challenge, and the aforementioned Italian stuff (evviva!) 
 
 ---
 
