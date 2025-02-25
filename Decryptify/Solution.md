@@ -9,7 +9,7 @@ Can you decrypt the secrets and get RCE on the system?
     - [Exploring The Application](#Exploring-The-Application)
     - [The API.js file](#The-APIjs-file)
     - [API documentation, a dead end?](#API-documentation-a-dead-end)
-    - [Enumerating with ffuf: there's hope!](#Enumerating-with-ffuftheres-hope)
+    - [Enumerating with ffuf: there's hope!](#Enumerating-with-ffuf-theres-hope)
     - [Accessing the user account, first flag!](#Accessing-the-user-account-first-flag)
     - [The real decryption problem](#The-real-decryption-problem)
     - [Can you hear that? It's an oracle talking! (second flag)](#Can-you-hear-that-Its-an-oracle-talking-second-flag)
