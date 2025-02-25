@@ -56,36 +56,6 @@ function calculate_seed_value($email, $constant_value) {
     $email_length = strlen($email);
     $email_hex = hexdec(substr($email, 0, 8));
     $seed_value = hexdec($email_length + $constant_value + $email_hex);
-+-------------------------------------------+
-| PadBuster - v0.3.3                        |
-| Brian Holyfield - Gotham Digital Science  |
-| labs@gdssecurity.com                      |
-+-------------------------------------------+
-
-INFO: The original request returned the following
-[+] Status: 200
-[+] Location: N/A
-[+] Content Length: 1349
-
-INFO: Starting PadBuster Encrypt Mode
-[+] Number of Blocks: 4
-
-INFO: No error string was provided...starting response analysis
-
-*** Response Analysis Complete ***
-
-The following response signatures were returned:
-
--------------------------------------------------------
-ID#     Freq    Status  Length  Location
--------------------------------------------------------
-1       1       200     1324    N/A
-2 **    255     400     1411    N/A
--------------------------------------------------------
-
-Enter an ID that matches the error condition
-NOTE: The ID# marked with ** is recommended : 2
-
     return $seed_value;
 }
      $seed_value = calculate_seed_value($email, $constant_value);
@@ -175,7 +145,7 @@ Now that we are on the dashboard, there doesn't seem to be anything useful at fi
 ![dashboard](images/dashboard.png) 
 That admin user is really goloso, but unfortunately it doesn't seem like we can access it the same way we did with our normal user. 
 <br><br>
-When dealing with web challenges, my personal last resort when I am really stuck is just to check the HTML, it usually doesn't lead to anything so... WOAH wha is this?!
+When dealing with web challenges, my personal last resort when I am really stuck is just to check the HTML, it usually doesn't lead to anything so... WOAH what is this?!
 ```HTML
 <form method="get">
     <input type="hidden" name="date" value= "/RozKXrvotl7sbZYeqduzy8D3CpBUPTbj/OuQVvAI+o=">
