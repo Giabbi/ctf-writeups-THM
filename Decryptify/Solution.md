@@ -27,7 +27,7 @@ Alright Amici mei, let's dive in!
 The first thing I did, as always, is running nmap on the target machine. Weirdly enough, the only thing I found was an ssh service running on port 22, meaning that just googling ```http://MACHINE_IP``` won't do anything. <br><br>
 After banging my head for a while I decided to scan <b>ALL</b> the ports with 
 ```bash 
-nmap [MACHINE_IP]1-65535 -T4
+nmap [MACHINE_IP] -p1-65535 -T4
 ``` 
 to see if I could find anything useful. After an espresso or two, it finally popped up: an http server running on port 1337 (why THM?). After going to ```http://MACHINE_IP:1337``` we can finally start the challenge.
 
