@@ -219,3 +219,63 @@ so our final cookie will be
 Now all we need to do is send this cookie (remember to also change the `user` cookie to "admin" and to keep the `User-Agent` header as "AAAAAAAA") and we will be logged in as admin, getting our first flag!
 
 ### Decrypting Encrypted Secret - Second Flag
+Now that we know the main vulnerability of the app, we can use it to decrypt the secret Key too!
+
+To do this, we will abuse three things:
+- The fact that DES uncrypts every 8 characters
+- Known padding from the flag (all TryHackMe flags start with THM{ and end with })
+- The ability to manipulate the lenght of blocks thanks to the `User-Agent` HTTP header.
+
+First, we know that the first block is always going to be guest (or admin) followed by a colon and the first two characters of the `User-Agent` header, for example
+```text
+guest:AA
+```
+The second block is where things start to get interesting. You see, cracking 8 characters from DES will require my poor RTX 3050 laptop to run for about 11 years <b>per block</b>. Considering that this is a <b>very</b> long flag (you can see this under the challenge question), brute-forcing is not feasable, unless... we don't have to crack the full 8 blocks! As mentioned earlier, we know some of the padding of the flag, so we can use that to our advantage.
+
+Using our 8 As `User-Agent` cookie, we know that the second block must be:
+```text
+AAAAAA:T
+```
+A quick verification with the php code provided will prove this too!
+
+So now instead of having to crak 8 characters, we just need to crack 6, because we know that the next block has to start with:
+```text
+HM{
+```
+we can crack the next characters with the following hashcat command:
+```bash
+hashcat -m 1500 -a 3 hash.txt "HM{?1?1?1?1?1" -1 abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789?s 
+```
+If you are a bit rusty with hashcat, here is a quick explanation of what is going on:
+- The -m flag tells hashcat what algorithm we are cracking, in our case it is DES (which is code 1500)
+- The -a flag tells hashcat that we are trying to bruteforce the hash
+- hash.txt contains the third block of the cookie (assuming it has an 8 character `User-Agent`)
+- `"HM{?1?1?1?1?1"` is the mask, we need to pass this so that hashcat can use the known padding to speed up the process drammatically
+- Lastly, the -1 flag represents our charset, which is all ASCII characters
+
+Running this commad will reveal the first bit of the flag... if you don't have a potato pc. You see, 5 characters in DES is not a lot if you have a dedicated gpu, but if that is not you don't worry! Keep reading and you will see you to reduce the cracking time even more.
+
+But after cracking the third block we are kind of stuck, the fourth block is still a bit too long to crack... What if we make the cookie a bit more revealing?
+
+ To achieve this, we can just make the `User-Agent` a bit shorter, say 4 As instead of 8. This means that we will have this situation:
+```text
+First block: guest:AA
+Second block: AA:THM{*
+Third block: ****----
+```
+Due to TryHackMe policy I cannot show the flag, but in the section above `*` stands for characters we cracked with the previous cookie and `-` for characters we are trying to crack, meaning our hashcat command will be:
+```bash
+hashcat -m 1500 -a 3 hash.txt "****?1?1?1?1" -1 abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789?s 
+```
+By doing this, we now have the first characters of the next block in previous cookie (the one with the 8 character `User-Agent`). You see where this is going? By alternating cracking between the two cookies, one with 8 character of `User-Agent` and the other with 4, we can cut in half the characters we need to crack!
+
+Now all we have to do is rinse and repeat this process until we have the full flag. Personally, I did this process by hand, but I am sure there afre tools or scripts out there that can automate this process. If you know such thing feel free to open an issue, and I will review it as fast as possible.
+
+After a bit of hashcat, we finally have our second flag!
+
+## Main Takeaways
+As always, there is a lot to learn in these challenges. Today we have two main Takeaways:
+1. Don't use DES in 2025. This algorithm is half a century old and not secure. Even if we didn't exploit those padding vulnerabilities, cracking a block is shockingly fast with the right hardware
+2. Follow industry standards for your cookies. You saw what happens when you use your own formula for these delicious tokens, but unlike my nonna's recipe you should not add a secret ingredient, especially if the user can modify it.
+
+And that's it for Crypto-Failures! Ci vediamo alla prossima amici!
