@@ -238,7 +238,7 @@ The main vulnerability in this program was (arguably) the padding oracle attack.
 Padding Oracle attacks exploit a loose-lipped encryption system that tells us when we mess up. Normally, when a server decrypts a message, it removes padding (extra bytes added to make the message fit into a block). If the padding is incorrect, a properly configured system should give a generic error. But some systems? Oh, no. They spill the beans by throwing a specific padding error. And that, my friend, gives us the power to manipulate encrypted data bit by bit—until we completely break it.
 
 
-![CBC multiblock](images/_cbc-dec-multiblock.png)
+![CBC multiblock](images/cbc.png)
 
 
 Let’s visualize it: Imagine a message split into blocks like [C1] [C2] [C3], where each block is encrypted separately but depends on the previous one (because CBC mode chains them together). Now, let’s say we only have the ciphertext (not the key). If we change just the last byte of [C2] and send it to the server, it decrypts it and checks the padding. If the padding is valid, we know our guess was correct. If not? We tweak it again and keep adjusting byte by byte, using the errors as a guide until we decrypt the entire block. Rinse and repeat, and suddenly we have full decryption and even the ability to encrypt our own data (which is exactly what we did with PadBuster!).
