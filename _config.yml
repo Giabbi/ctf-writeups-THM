@@ -1,0 +1,16 @@
+# _config.yml
+
+# Site settings
+title: "TryHackMe CTF Writeups"
+description: "A curated collection of my TryHackMe CTF challenges and writeups."
+theme: jekyll-theme-cayman
+
+baseurl: "/ctf-writeups-THM"
+
+url: "https://username.github.io"
+
+# Markdown processor
+markdown: kramdown
+
+# Permalink style for cleaner URLs
+permalink: pretty
