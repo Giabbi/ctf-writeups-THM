@@ -96,3 +96,19 @@
 .dropdown-menu a:hover {
   background-color: #333;
 }
+
+/* 1) Aggressively remove all ">>" arrows from lists and links site-wide */
+li::before,
+li::after,
+a::before,
+a::after {
+  content: none !important;
+}
+
+/* 2) Prevent horizontal scrolling caused by theme or content overflow */
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
