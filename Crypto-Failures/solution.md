@@ -1,4 +1,3 @@
-# Ciao bello! This Writeup is still work in progress, come back later for something awesome (parmiggiana di melanzane sold separately)
 # Crypto-Failures
 ## Challenge Description
 
@@ -24,7 +23,7 @@ First exploit the encryption scheme in the simplest possible way, then find the 
 ### Exploring the Application
 It seems like TryHackMe is really into their crypto recently, well then let's jump in amici miei!
 
-The first thing, as always, is to visit the IP address from our browser to gather a sense of wha the application is like. Unlike the last cryptography challenge we went over, this time the website seems to be much more "bare-bone":
+The first thing, as always, is to visit the IP address from our browser to gather a sense of what the application is like. Unlike the last cryptography challenge we went over, this time the website seems to be much more "bare-bones":
 
 ![index rendered](images/index.png)
 
@@ -33,7 +32,7 @@ Don't let that fool you however, my detective instincts are already starting to 
 ```html
 <!-- TODO remember to remove .bak files -->
 ```
-<i>Daje</i> that's what we like to see! Before enumerating with ffuf, I wanted to see if the .bak file mentioned was actually the index page in which we are located, and what do you know, it was actually just that!
+<i>Daje</i> that's what we like to see! Before enumerating with ffuf, I wanted to see if the .bak file mentioned was actually the index page in which we are located, and what do you know, it was exactly that!
 
 If you visit ```http://[MACHINE_IP]/index.php.bak``` we get a very interesting file. Probably however the challenge wanted us to find this by enumeration, so I will leave the ffuf command if you wanna do it the "right" way.
 ```bash
@@ -230,7 +229,7 @@ First, we know that the first block is always going to be guest (or admin) follo
 ```text
 guest:AA
 ```
-The second block is where things start to get interesting. You see, cracking 8 characters from DES will require my poor RTX 3050 laptop to run for about 11 years <b>per block</b>. Considering that this is a <b>very</b> long flag (you can see this under the challenge question), brute-forcing is not feasable, unless... we don't have to crack the full 8 blocks! As mentioned earlier, we know some of the padding of the flag, so we can use that to our advantage.
+The second block is where things start to get interesting. You see, cracking 8 characters from DES will require my poor RTX 3050 laptop to run for about 11 years <b>per block</b>. Considering that this is a <b>very</b> long flag (you can see this under the challenge question), brute-forcing is not feasible, unless... we don't have to crack the full 8 blocks! As mentioned earlier, we know some of the padding of the flag, so we can use that to our advantage.
 
 Using our 8 As `User-Agent` cookie, we know that the second block must be:
 ```text
