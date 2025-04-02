@@ -15,38 +15,50 @@
   </head>
 
   <body>
-    <header>
-      <nav class="navbar">
+    <!-- Create a completely separate header to avoid theme styling -->
+    <div class="custom-header" style="background-color: #222; padding: 10px 0;">
+      <div class="navbar" style="display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 20px;">
         <!-- Left side: Brand -->
         <div class="navbar-brand">
-          <a href="{{ '/' | relative_url }}">Giabbi's Writeups</a>
+          <a href="{{ '/' | relative_url }}" style="color: #00ff00; text-decoration: none; font-weight: bold; font-size: 1.2em;">Giabbi's Writeups</a>
         </div>
 
-        <!-- Right side: Navigation items -->
-        <ul class="navbar-menu">
-          <!-- Direct link button -->
-          <li>
-            <a href="{{ '/new' | relative_url }}" class="nav-btn">New Writeups</a>
-          </li>
-          <!-- Dropdown for multiple writeups -->
-          <li class="navbar-item dropdown">
-            <a href="#" class="nav-btn dropdown-toggle">Writeups</a>
-            <ul class="dropdown-menu">
-              <li><a href="{{ '/Crypto-Failures/solution' | relative_url }}">[NEW] Crypto Failures</a></li>
-              <li><a href="{{ '/Decryptify/solution' | relative_url }}">Decryptify</a></li>
-              <li><a href="{{ '/The-Sticker-Shop/solution' | relative_url }}">The Sticker Shop</a></li>
-              <li class="dropdown-divider"></li>
-              <li><a href="{{ '/all-writeups' | relative_url }}">All Writeups</a></li>
-            </ul>
-          </li>
-        </ul>
-      </nav>
-    </header>
+        <!-- Right side: Navigation items with inline styles to override theme -->
+        <div style="display: flex; gap: 10px;">
+          <a href="{{ '/new' | relative_url }}" style="color: #00ff00; background-color: #222; border: 1px solid #00ff00; padding: 8px 12px; text-decoration: none; border-radius: 4px;">New Writeups</a>
+          
+          <div class="dropdown" style="position: relative; display: inline-block;">
+            <a href="#" style="color: #00ff00; background-color: #222; border: 1px solid #00ff00; padding: 8px 12px; text-decoration: none; border-radius: 4px;">Writeups</a>
+            <div class="dropdown-content" style="display: none; position: absolute; background-color: #222; min-width: 160px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1; border: 1px solid #333;">
+              <a href="{{ '/Crypto-Failures/solution' | relative_url }}" style="color: #00ff00; padding: 12px 16px; text-decoration: none; display: block;">[NEW] Crypto Failures</a>
+              <a href="{{ '/Decryptify/solution' | relative_url }}" style="color: #00ff00; padding: 12px 16px; text-decoration: none; display: block;">Decryptify</a>
+              <a href="{{ '/The-Sticker-Shop/solution' | relative_url }}" style="color: #00ff00; padding: 12px 16px; text-decoration: none; display: block;">The Sticker Shop</a>
+              <a href="{{ '/all-writeups' | relative_url }}" style="color: #00ff00; padding: 12px 16px; text-decoration: none; display: block;">All Writeups</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div class="container">
       <section id="main_content">
         {{ content }}
       </section>
     </div>
+
+    <!-- Add dropdown functionality -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const dropdown = document.querySelector('.dropdown');
+        if (dropdown) {
+          dropdown.addEventListener('mouseenter', function() {
+            this.querySelector('.dropdown-content').style.display = 'block';
+          });
+          dropdown.addEventListener('mouseleave', function() {
+            this.querySelector('.dropdown-content').style.display = 'none';
+          });
+        }
+      });
+    </script>
   </body>
 </html>
