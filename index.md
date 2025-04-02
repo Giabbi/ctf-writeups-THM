@@ -1,12 +1,12 @@
 # TryHackMe CTF Writeups
 
-Benvenuti to my **TryHackMe CTF Writeups** repository! 🎉
+Benvenuti to my **TryHackMe CTF Writeups** repository! 
 
 This repository contains detailed writeups for Capture The Flag (CTF) challenges on [TryHackMe](https://tryhackme.com). Each writeup is designed to document my learning process, methodologies, and solutions while solving various challenges.
 
 ---
 
-## 🧩 What’s Inside
+## What’s Inside
 - Step-by-step solutions to TryHackMe challenges.
 - Insights into cybersecurity concepts like XSS, SQL injection, network exploitation, and more.
 - Useful payloads, tools, and techniques applied during the challenges.
@@ -15,7 +15,7 @@ This repository contains detailed writeups for Capture The Flag (CTF) challenges
 
 ---
 
-## 📜 Structure of Writeups
+## Structure of Writeups
 Each writeup follows this structure (and more):
 
 1. **Introduction**: A brief description of the challenge and its objectives.
@@ -27,31 +27,20 @@ Each writeup follows this structure (and more):
 
 ---
 
-## 🔧 Tools and Technologies
+## Tools and Technologies
 Here are some tools and technologies I frequently use while solving challenges:
 - **Python**: For scripting custom servers and payloads.
 - **Burp Suite**: For intercepting and manipulating HTTP traffic.
 - **Wireshark**: For network analysis.
 - **Nmap**: For network reconnaissance.
 - **Custom Scripts**: Tailored for specific challenge requirements.
+Remember! You are not a script kiddie if you know what's going on (I hope).
 
 ---
 
-## 🤝 Contributing
+## Contributing
 While this repository is primarily for my personal learning journey, contributions and suggestions are welcome! If you'd like to share your own insights or point out improvements, feel free to open an issue or create a pull request.
 
 ---
 
-## 🚀 Next Steps
-1. Explore individual writeups in the repository.
-2. Apply the techniques and payloads to similar challenges on TryHackMe or other platforms.
-3. Hack all the things!!!
-
----
-
-## 📄 License
-This repository is licensed under the [MIT License](LICENSE). Feel free to use the content here for educational purposes.
-
----
-
-**Hackerate miei amici, e portate in alto il nome del Gabibo! 🔒💻**
+**Ed ora hackerate miei amici, e portate in alto il nome del Gabibbo!**

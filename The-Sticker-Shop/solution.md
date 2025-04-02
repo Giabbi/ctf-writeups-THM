@@ -129,5 +129,5 @@ If everything went right, you received a base64 encoded flag, to decode it use a
 
 This challenge was like making a perfect espresso: patience, precision, and the right blend of ideas. Blind XSS taught me to adapt to localhost quirks and think creatively about admin-side processing. 
 
-Grazie for reading, and buona fortuna on your next hack! 🔒💻
+Grazie for reading, and buona fortuna on your next hack! 
 
