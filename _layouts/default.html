@@ -5,9 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Theme or default styles first -->
+    <!-- Load the theme's default CSS first -->
     <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
-    <!-- Then your overrides -->
+    <!-- Then load your custom overrides -->
     <link rel="stylesheet" href="{{ '/assets/css/override.css' | relative_url }}">
 
     {% include head-custom.html %}
@@ -17,21 +17,20 @@
   <body>
     <header>
       <nav class="navbar">
-        <!-- Left side: site brand -->
+        <!-- Left side: Brand -->
         <div class="navbar-brand">
           <a href="{{ '/' | relative_url }}">Giabbi's Writeups</a>
         </div>
 
-        <!-- Right side: nav items -->
+        <!-- Right side: Navigation items -->
         <ul class="navbar-menu">
-          <!-- Example: A direct link styled as a button -->
+          <!-- Direct link button -->
           <li>
-            <a href="{{ '/new' | relative_url }}" class="btn">New Writeups</a>
+            <a href="{{ '/new' | relative_url }}" class="nav-btn">New Writeups</a>
           </li>
-
-          <!-- Example: A dropdown for multiple writeups -->
+          <!-- Dropdown for multiple writeups -->
           <li class="navbar-item dropdown">
-            <a href="#" class="dropdown-toggle">Writeups</a>
+            <a href="#" class="nav-btn dropdown-toggle">Writeups</a>
             <ul class="dropdown-menu">
               <li><a href="{{ '/Crypto-Failures/solution' | relative_url }}">[NEW] Crypto Failures</a></li>
               <li><a href="{{ '/Decryptify/solution' | relative_url }}">Decryptify</a></li>

@@ -1,13 +1,14 @@
-/* Basic Navbar Styles */
+/* --- Container and Layout --- */
 .navbar {
   display: flex;
   align-items: center;
+  justify-content: space-between; /* Brand on left, nav items on right */
   background-color: #222;
   padding: 1em;
   margin-bottom: 1em;
 }
 
-/* The brand link on the left */
+/* --- Navbar Brand --- */
 .navbar-brand a {
   color: #00ff00;
   text-decoration: none;
@@ -15,81 +16,81 @@
   font-size: 1.2em;
 }
 
-/* The menu on the right */
+/* --- Navbar Menu --- */
 .navbar-menu {
-  margin-left: auto; /* push links to the right */
-  list-style: none;
   display: flex;
-  gap: 1em;
+  align-items: center;
+  list-style: none;
   margin: 0;
   padding: 0;
 }
 
-/* Remove ">>" arrows in the navbar area */
+.navbar-menu li {
+  position: relative;
+  margin-left: 1em; /* Spacing between items */
+}
+
+/* Remove any default ">>" arrows injected by the theme */
 .navbar-menu li::before,
-.dropdown-menu li::before {
+.navbar-menu li a::before,
+.dropdown-menu li::before,
+.dropdown-menu li a::before {
   content: none !important;
 }
 
-/* Navbar list items */
-.navbar-menu li {
-  position: relative;
-}
-
-/* Style the navbar links */
-.navbar-menu a {
-  color: #00ff00;
+/* --- Uniform Button Style for Nav Items --- */
+.nav-btn {
+  display: inline-block;
+  color: #fff;
+  background-color: #444;
+  border: 1px solid #00ff00;
   text-decoration: none;
   padding: 0.5em 1em;
   border-radius: 4px;
-  transition: background-color 0.2s;
+  transition: background-color 0.2s, border-color 0.2s;
 }
 
-/* Hover effect for links */
-.navbar-menu a:hover {
-  background-color: #333;
-}
-
-/* "Button" style */
-.navbar-menu a.btn {
-  background-color: #444;
-  color: #fff;
-  border: 1px solid #00ff00;
-}
-
-.navbar-menu a.btn:hover {
+.nav-btn:hover {
   background-color: #555;
   border-color: #00ff00;
 }
 
-/* Dropdown styling */
+/* Make the dropdown toggle look like the other buttons */
+.dropdown-toggle {
+  cursor: pointer;
+}
+
+/* --- Dropdown Menu --- */
 .navbar-item.dropdown:hover .dropdown-menu {
-  display: block; /* show on hover */
+  display: block;
 }
 
 .dropdown-menu {
   display: none;
   position: absolute;
-  /* place it just below the link with a small gap */
   top: calc(100% + 0.5em);
   left: 0;
   background-color: #222;
   list-style: none;
-  padding: 0.5em;
+  padding: 0.5em 0;
   margin: 0;
   border: 1px solid #333;
-  z-index: 9999; /* ensure it appears on top */
+  z-index: 9999;
+  min-width: 180px;
 }
 
 .dropdown-menu li {
   margin: 0;
 }
 
+/* Dropdown items: using similar style as nav buttons */
 .dropdown-menu a {
   display: block;
   padding: 0.5em 1em;
   color: #00ff00;
   text-decoration: none;
+  background-color: #222;
+  border: none;
 }
 
 .dropdown-menu a:hover {
