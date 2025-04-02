@@ -1,39 +1,47 @@
 <!DOCTYPE html>
 <html lang="{{ site.lang | default: "en-US" }}">
   <head>
-    <meta charset='utf-8'>
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{{ '/assets/css/override.css' | relative_url }}">
-    <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
-    {% include head-custom.html %}
 
-{% seo %}
+    <!-- Theme or default styles first -->
+    <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
+    <!-- Then your overrides -->
+    <link rel="stylesheet" href="{{ '/assets/css/override.css' | relative_url }}">
+
+    {% include head-custom.html %}
+    {% seo %}
   </head>
 
   <body>
-
     <header>
       <nav class="navbar">
+        <!-- Left side: site brand -->
         <div class="navbar-brand">
           <a href="{{ '/' | relative_url }}">Giabbi's Writeups</a>
         </div>
+
+        <!-- Right side: nav items -->
         <ul class="navbar-menu">
           <!-- Example: A direct link styled as a button -->
-          <li><a href="{{ '/new' | relative_url }}" class="btn">New Writeups</a></li>
+          <li>
+            <a href="{{ '/new' | relative_url }}" class="btn">New Writeups</a>
+          </li>
+
           <!-- Example: A dropdown for multiple writeups -->
           <li class="navbar-item dropdown">
-              <a href="#" class="dropdown-toggle">New Writeups</a>
-              <ul class="dropdown-menu">
-                <li><a href="{{ '/Crypto-Failures/solution' | relative_url }}">[NEW] Crypto Failures</a></li>
-                <li><a href="{{ '/Decryptify/solution' | relative_url }}">Decryptify</a></li>
-                <li><a href="{{ '/The-Sticker-Shop/solution' | relative_url }}">The Sticker Shop</a></li>
-                <li class="dropdown-divider"></li>
-                <li><a href="{{ '/all-writeups' | relative_url }}">All Writeups</a></li>
-              </ul>
-            </li>
-          </ul>
-        </nav>      
+            <a href="#" class="dropdown-toggle">Writeups</a>
+            <ul class="dropdown-menu">
+              <li><a href="{{ '/Crypto-Failures/solution' | relative_url }}">[NEW] Crypto Failures</a></li>
+              <li><a href="{{ '/Decryptify/solution' | relative_url }}">Decryptify</a></li>
+              <li><a href="{{ '/The-Sticker-Shop/solution' | relative_url }}">The Sticker Shop</a></li>
+              <li class="dropdown-divider"></li>
+              <li><a href="{{ '/all-writeups' | relative_url }}">All Writeups</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
     </header>
 
     <div class="container">

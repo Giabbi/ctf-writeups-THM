@@ -1,88 +1,97 @@
 /* Basic Navbar Styles */
 .navbar {
-    display: flex;
-    align-items: center;
-    background-color: #222; /* Or any dark color you like */
-    padding: 1em;
-    margin-bottom: 1em; /* Space below the navbar */
-  }
-  
-  .navbar-brand a {
-    color: #00ff00; /* Hacker-green or your favorite color */
-    text-decoration: none;
-    font-weight: bold;
-    margin-right: auto; /* Pushes the menu items to the right */
-    font-size: 1.2em;
-  }
-  
-  /* Remove default list styling and align horizontally */
-  .navbar-menu {
-    list-style: none;
-    display: flex;
-    gap: 1em;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .navbar-menu li {
-    position: relative;
-  }
-  
-  /* Style the navbar links */
-  .navbar-menu a {
-    color: #00ff00;
-    text-decoration: none;
-    padding: 0.5em 1em;
-    border-radius: 4px;
-    transition: background-color 0.2s;
-  }
-  
-  /* Hover effect for links */
-  .navbar-menu a:hover {
-    background-color: #333;
-  }
-  
-  /* Example: Turn links into "button" styles */
-  .navbar-menu a.btn {
-    background-color: #444;
-    color: #fff;
-    border: 1px solid #00ff00;
-  }
-  
-  .navbar-menu a.btn:hover {
-    background-color: #555;
-    border-color: #00ff00;
-  }
-  
-  /* Dropdown styling (optional) */
-  .navbar-item.dropdown:hover .dropdown-menu {
-    display: block; /* Show on hover */
-  }
-  
-  .dropdown-menu {
-    display: none; /* Hidden by default */
-    position: absolute;
-    top: 2em; /* Adjust to position below the link */
-    left: 0;
-    background-color: #222;
-    list-style: none;
-    padding: 0.5em;
-    margin: 0;
-    border: 1px solid #333;
-  }
-  
-  .dropdown-menu li {
-    margin: 0;
-  }
-  
-  .dropdown-menu a {
-    display: block;
-    padding: 0.5em 1em;
-    color: #00ff00;
-    text-decoration: none;
-  }
-  
-  .dropdown-menu a:hover {
-    background-color: #333;
-  }
-  
+  display: flex;
+  align-items: center;
+  background-color: #222;
+  padding: 1em;
+  margin-bottom: 1em;
+}
+
+/* The brand link on the left */
+.navbar-brand a {
+  color: #00ff00;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+/* The menu on the right */
+.navbar-menu {
+  margin-left: auto; /* push links to the right */
+  list-style: none;
+  display: flex;
+  gap: 1em;
+  margin: 0;
+  padding: 0;
+}
+
+/* Remove ">>" arrows in the navbar area */
+.navbar-menu li::before,
+.dropdown-menu li::before {
+  content: none !important;
+}
+
+/* Navbar list items */
+.navbar-menu li {
+  position: relative;
+}
+
+/* Style the navbar links */
+.navbar-menu a {
+  color: #00ff00;
+  text-decoration: none;
+  padding: 0.5em 1em;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+/* Hover effect for links */
+.navbar-menu a:hover {
+  background-color: #333;
+}
+
+/* "Button" style */
+.navbar-menu a.btn {
+  background-color: #444;
+  color: #fff;
+  border: 1px solid #00ff00;
+}
+
+.navbar-menu a.btn:hover {
+  background-color: #555;
+  border-color: #00ff00;
+}
+
+/* Dropdown styling */
+.navbar-item.dropdown:hover .dropdown-menu {
+  display: block; /* show on hover */
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  /* place it just below the link with a small gap */
+  top: calc(100% + 0.5em);
+  left: 0;
+  background-color: #222;
+  list-style: none;
+  padding: 0.5em;
+  margin: 0;
+  border: 1px solid #333;
+  z-index: 9999; /* ensure it appears on top */
+}
+
+.dropdown-menu li {
+  margin: 0;
+}
+
+.dropdown-menu a {
+  display: block;
+  padding: 0.5em 1em;
+  color: #00ff00;
+  text-decoration: none;
+}
+
+.dropdown-menu a:hover {
+  background-color: #333;
+}
