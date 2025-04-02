@@ -3,7 +3,7 @@
 # Site settings
 title: "TryHackMe CTF Writeups"
 description: "A curated collection of my TryHackMe CTF challenges and writeups."
-theme: jekyll-theme-cayman
+theme: jekyll-theme-hacker
 
 baseurl: "/ctf-writeups-THM"
 
