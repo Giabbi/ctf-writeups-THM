@@ -1,3 +1,5 @@
+<br>
+
 # Crypto-Failures
 ## Challenge Description
 
@@ -11,16 +13,15 @@ First exploit the encryption scheme in the simplest possible way, then find the 
 <i>You can find the full challenge at the following link: [TryHackme Crypto-Failures](https://tryhackme.com/room/cryptofailures)</i>
 
 ## Table of Contents
-- Walkthrough
-    - Exploring the Application
-    - The Backup File
-    - Forging Admin Cookie - First Flag
-    - Decrypting Encrypted Secret - Second Flag
-- Main takeaways
+- [Walkthrough](#start)
+    - [Exploring the Application](#app)
+    - [Forging Admin Cookie - First Flag](#first)
+    - [Decrypting Encrypted Secret - Second Flag](#second)
+- [Main takeaways](#end)
 
-## Walkthrough
+## Walkthrough {#start}
 
-### Exploring the Application
+### Exploring the Application {#app}
 It seems like TryHackMe is really into their crypto recently, well then let's jump in amici miei!
 
 The first thing, as always, is to visit the IP address from our browser to gather a sense of what the application is like. Unlike the last cryptography challenge we went over, this time the website seems to be much more "bare-bones":
@@ -152,7 +153,7 @@ $salt=substr($_COOKIE['secure_cookie'],0,2);
 ```
 Knowing all of this information, we can now start break some things!
 
-### Forging Admin Cookie - First Flag
+### Forging Admin Cookie - First Flag {#first}
 As I said before, the key to this challenge is the fact that DES breaks our ciphertext into chunks of the same length. This pattern can be easily spotted thanks to the salt, take this cookie for example: 
 ```
 YVxrXiItMvl4.YVXAfPSj79DCsYVMOFnVbr4PoIYVp7zS9yqUwPsYVwm7yUPcW6XMYV6jUWQdWxwqsYVn%2Fwry9OoIKsYVS1TOZVTMVIQYV5KB0kA8z2cMYVmBxRMGfPAtEYVfhV8vlgf3qMYVLWgc8OnNTBAYVOtDQQLlcYi.YVaXxTxsR8rg2YVuwQ11nXRn0.YVtHlTRlWDnJkYVdJ2TKN0h.ikYVRfA9fh205ZUYVmDZo%2Fdju%2FT2YV5maG%2FQ8tA0gYV9Mi9FghWBlQ
@@ -217,7 +218,7 @@ so our final cookie will be
 
 Now all we need to do is send this cookie (remember to also change the `user` cookie to "admin" and to keep the `User-Agent` header as "AAAAAAAA") and we will be logged in as admin, getting our first flag!
 
-### Decrypting Encrypted Secret - Second Flag
+### Decrypting Encrypted Secret - Second Flag {#second}
 Now that we know the main vulnerability of the app, we can use it to decrypt the secret Key too!
 
 To do this, we will abuse three things:
@@ -272,7 +273,7 @@ Now all we have to do is rinse and repeat this process until we have the full fl
 
 After a bit of hashcat, we finally have our second flag!
 
-## Main Takeaways
+## Main Takeaways {#end}
 As always, there is a lot to learn in these challenges. Today we have two main Takeaways:
 1. Don't use DES in 2025. This algorithm is half a century old and not secure. Even if we didn't exploit those padding vulnerabilities, cracking a block is shockingly fast with the right hardware
 2. Follow industry standards for your cookies. You saw what happens when you use your own formula for these delicious tokens, but unlike my nonna's recipe you should not add a secret ingredient, especially if the user can modify it.

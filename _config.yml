@@ -12,5 +12,8 @@ url: "https://username.github.io"
 # Markdown processor
 markdown: kramdown
 
+kramdown:
+  auto_ids: true
+
 # Permalink style for cleaner URLs
 permalink: pretty

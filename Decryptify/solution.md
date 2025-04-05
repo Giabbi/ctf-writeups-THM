@@ -1,3 +1,5 @@
+<br>
+
 # Decryptify - Full Writeup and Walkthrough
 ## Challenge Description
 Start the VM by clicking the Start Machine button at the top right of the task. You can complete the challenge by connecting through the VPN or the AttackBox, which contains all the essential tools.

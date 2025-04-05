@@ -1,3 +1,5 @@
+<br>
+
 # The Sticker Shop - TryHackMe Writeup
 
 ## Challenge Description
