@@ -25,9 +25,9 @@ Can you read the flag at `http://MACHINE_IP:8080/flag.txt`?
 ---
 
 
-## Walkthrough
+## Walkthrough {#walkthrough}
 
-### Initial Exploration
+### Initial Exploration {#initial-exploration}
 When I first read the challenge prompt, a few things caught my attention. The mention of hosting everything on the same computer sounded like a major vulnerability waiting to happen, especially if the admin reviews feedback on the same browser. The **hint** in the description felt like a nudge toward something admin-side, like a **Blind XSS**.
 
 1. I visited `http://MACHINE_IP:8080/flag.txt` directly, hoping the flag was accessible.  
@@ -38,7 +38,7 @@ When I first read the challenge prompt, a few things caught my attention. The me
 
 ---
 
-### The Feedback Page
+### The Feedback Page {#the-feedback-page}
 The feedback page had a simple textbox for entering comments and a message below it:
 
 > "Thanks for your feedback! It will be evaluated shortly by our staff."
@@ -51,9 +51,9 @@ I decided to test for Blind XSS by injecting a basic payload into the textbox.
 
 ---
 
-### Crafting the Payloads
+### Crafting the Payloads {#crafting-the-payloads}
 
-#### Initial Test Payload
+#### Initial Test Payload {#initial-test-payload}
 To confirm whether XSS was possible, I used a simple test payload:
 
 ```html
@@ -70,7 +70,7 @@ MACHINE_IP - - [29/Nov/2024 17:42:25] "GET / HTTP/1.1" 200 -
 ```
 This confirmed it, the machine **is vulnerable to Blind XSS**. Now what was left to do was to get the admin bot to do something useful
 
-#### Cookie Payload (unsuccesfull)
+#### Cookie Payload (unsuccesfull) {#cookie-payload-unsuccessful}
 The first trick on my book was to steal the admin's cookie to gain access to the flag.txt file, to do that I used the following payload:
 
 ```html
@@ -82,7 +82,7 @@ Unfortunately, this did not yield anything usefull, the website probably doesn't
 MACHINE_IP - - [29/Nov/2024 17:45:25] code 404, message File not found
 MACHINE_IP - - [29/Nov/2024 17:45:25] "GET /cookies?cookie= HTTP/1.1" 404 -
 ```
-#### Direct File Access (succesfull!)
+#### Direct File Access (succesfull!) {#direct-file-access-successful}
 The next thing was to see if I could get the admin to go to the flag.txt file and send its contents back to my http server. To do this a simplehttp does not suffice since it does not support POST requests
 
 Using the following code, I made a better http server to view POST requests too:
@@ -122,7 +122,7 @@ Now all I needed was a new payload, after a lot of tries (and espressos) I final
 Be sure to change ```ATTACKER_IP``` with your openvpn ip, as per the ip fetched, you might be wondering why it is a 127.0.0.1 ip. I found out using other payloads that the "admin" doesn't use the openvpn ip we see (why would it if the file is on his computer?), instead it has a local one, which works way better.
 
 ---
-### Decode the Flag
+### Decode the Flag {#decode-the-flag}
 If everything went right, you received a base64 encoded flag, to decode it use a tool like [cyberchef](https://gchq.github.io/CyberChef/).
 
 ---

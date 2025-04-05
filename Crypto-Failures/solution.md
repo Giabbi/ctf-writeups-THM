@@ -214,7 +214,7 @@ which is:
 YV82.Eux48iAQ
 ```
 so our final cookie will be
-> <u><b>YV82.Eux48iAQ</b></u>YVXAfPSj79DCsYVMOFnVbr4PoIYVp7zS9yqUwPsYVwm7yUPcW6XMYV6jUWQdWxwqsYVn%2Fwry9OoIKsYVS1TOZVTMVIQYV5KB0kA8z2cMYVmBxRMGfPAtEYVfhV8vlgf3qMYVLWgc8OnNTBAYVOtDQQLlcYi.YVaXxTxsR8rg2YVuwQ11nXRn0.YVtHlTRlWDnJkYVdJ2TKN0h.ikYVRfA9fh205ZUYVmDZo%2Fdju%2FT2YV5maG%2FQ8tA0gYV9Mi9FghWBlQ
+> <u><b>YV82.Eux48iAQ</b></u>YVXAfPSj79DCsYVMOFnVbr4PoIYVp7zS9yqUwPsYVwm7yUPcW6XMYV6jUWQdWxwqsYVn%2Fwry9OoIKsYVS1TOZVTMVIQY<br>V5KB0kA8z2cMYVmBxRMGfPAtEYVfhV8vlgf3qMYVLWgc8OnNTBAYVOtDQQLlcYi.YVaXxTxsR8rg2YVuwQ11nXRn0.YVtHlTRlWDnJkYVd<br>J2TKN0h.ikYVRfA9fh205ZUYVmDZo%2Fdju%2FT2YV5maG%2FQ8tA0gYV9Mi9FghWBlQ
 
 Now all we need to do is send this cookie (remember to also change the `user` cookie to "admin" and to keep the `User-Agent` header as "AAAAAAAA") and we will be logged in as admin, getting our first flag!
 

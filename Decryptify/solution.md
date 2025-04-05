@@ -21,9 +21,9 @@ Can you decrypt the secrets and get RCE on the system?
 - [Acknowledgements and resources](#Acknowledgements-and-resources)
 ---
 
-## Walkthrough
+## Walkthrough {#Walkthrough}
 
-### Exploring The Application
+### Exploring The Application {#Exploring-The-Application}
 Alright Amici mei, let's dive in! 
 <br>
 The first thing I did, as always, is running nmap on the target machine. Weirdly enough, the only thing I found was an ssh service running on port 22, meaning that just googling ```http://MACHINE_IP``` won't do anything. <br><br>
@@ -33,7 +33,7 @@ nmap [MACHINE_IP] -p1-65535 -T4
 ``` 
 to see if I could find anything useful. After an espresso or two, it finally popped up: an http server running on port 1337 (why THM?). After going to ```http://MACHINE_IP:1337``` we can finally start the challenge.
 
-### The API.js file
+### The API.js file {#The-APIjs-file}
 Once we land on the page, we can see two login forms, one that requires a username and an invite code, and the other requires an email instead of the username. Another interesting thing was the API documentation page, which you can find in the footer of the login page, but unfortunately this is password protected. 
 <br><br>
 After digging into the source code of the page I found an interesting file, API.js.
@@ -52,7 +52,7 @@ This results in the following string:
 ```
 For fun, I tried plugging it into the API login and what do you know, it was the password!
 
-### API documentation, a dead end?
+### API documentation, a dead end? {#API-documentation-a-dead-end}
 The first thing we see once in the api.php page is some php code that, most likely, is being used in the backend to generate the invite_code for a certain email. Here it is for your convenience:
 ```php
 // Token generation example
@@ -71,7 +71,7 @@ It looks like we can forge our own invite code! This is because ```mt_srand()```
 <br>
 My first instinct was to use a random email, but apparently it needs to be registered first...
 
-### Enumerating with ffuf: there's hope!
+### Enumerating with ffuf: there's hope! {#Enumerating-with-ffuf-theres-hope}
 After multiple espressos I remembered what my mamma always used to say
 > <i>"If you get stuck, try to enumerate the stack"  </i>
 
@@ -95,7 +95,7 @@ On this page, we can see an ```app.log``` file, which once clicked shows the fol
 ```
 Now not only do we have a fresh email to hack, but we can also use the token for ```alpha@fake.thm``` to bruteforce the constant needed (```$constant_value```) in the php code mentioned before. Let's get forging!
 
-### Accessing the user account, first flag!
+### Accessing the user account, first flag! {#Accessing-the-user-account-first-flag}
 To forge our token for ```hello@fake.thm```, we first need to find what the ```$constant_value``` variable is. To do this, I am going to change a bit the script in the API documentation and try to bruteforce it using the token we already have, the one for ```alpha@fake.thm```.
 
 Here is the php code I used:
@@ -144,7 +144,7 @@ function calculate_seed_value($email, $constant_value) {
 ```
 The result of this program is ```NDYxNTg5ODkx``` which, if used on the second login form alongside the ```hello@fake.thm``` email, gives access to the ```/dashboard.php``` page and our first flag!
 
-### The real decryption problem
+### The real decryption problem {#The-real-decryption-problem}
 Now that we are on the dashboard, there doesn't seem to be anything useful at first glance. Here is a picture:
 ![dashboard](images/dashboard.png) 
 That admin user is really goloso, but unfortunately it doesn't seem like we can access it the same way we did with our normal user. 
@@ -166,7 +166,7 @@ Warning: openssl_decrypt(): IV passed is only 4 bytes long, cipher expects an IV
 ```
 That's it! I know exactly what vulnerability this is, and I have a special tool just for that!
 
-### Can you hear that? It's an oracle talking! (second flag)
+### Can you hear that? It's an oracle talking! (second flag) {#Can-you-hear-that-Its-an-oracle-talking-second-flag}
 The vulnerability I am about to use is called <b>padding oracle</b>, and it abuses the fact that the backend is a little too chatty with the frontend, giving us key information to lockpick that ciphertext. If you wanna learn more about this vulnerability, go check out the last two sections of this writeup. This one will only cover the "how", but still get that espresso ready!
 
 To check if this is actually a padding oracle (and not Nonna's lasagna giving me allucinations) we can use a tool called ```padbuster```, here is the command to use to decrypt the value:
@@ -229,7 +229,7 @@ Once we run it, another prompt is going to appear to ask us which response signa
 
 Once it is over, we will get a fresh ciphertext already encoded in base64. This is now ready to be sent in that hidden form. If you did everything correctly, you should see the flag popping up where the footer is!
 
-## What did we learn? (Spoiler, a lot!)
+## What did we learn? (Spoiler, a lot!) {#What-did-we-learn-Spoiler-a-lot}
 I have to admit, this was quite the journey, and as such there are a few takeaways to learn:
 - <b>Backend and Frontend should be used properly:</b> the first problem with this app was that a file, namely API.js, that was supposed to be on the backend, was on the frontend instead. Allowing us to bypass the authentication for the API documentation
 - <b>Keep your logs in your pants:</b> logs should be safely stored on your backend and not be visible by the user. As we saw earlier, this can lead to information leaks.
@@ -245,7 +245,7 @@ Padding Oracle attacks exploit a loose-lipped encryption system that tells us wh
 
 Let’s visualize it: Imagine a message split into blocks like [C1] [C2] [C3], where each block is encrypted separately but depends on the previous one (because CBC mode chains them together). Now, let’s say we only have the ciphertext (not the key). If we change just the last byte of [C2] and send it to the server, it decrypts it and checks the padding. If the padding is valid, we know our guess was correct. If not? We tweak it again and keep adjusting byte by byte, using the errors as a guide until we decrypt the entire block. Rinse and repeat, and suddenly we have full decryption and even the ability to encrypt our own data (which is exactly what we did with PadBuster!).
 
-## Acknowledgements and resources
+## Acknowledgements and resources {#Acknowledgements-and-resources}
 Huge grazie to Brian Holyfield for developing padbuster, such an amazing and cool tool! Check out more about it [here](https://cyber.aon.com/aon_cyber_labs/automated-padding-oracle-attacks-with-padbuster/)
 
 If you are still interested in cryptography and padding oracles check out these resources:
