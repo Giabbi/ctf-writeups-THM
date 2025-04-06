@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TryHackMe Writeups</title>
+  <style>
+    /* Reset some default styling */
+    body, h1, h2, h3, p, ul, li, a, button {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    /* Overall body styling matching the dark theme */
+    body {
+      background-color: #222;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    /* Logo styling at the top */
+    .logo {
+      margin-bottom: 30px;
+    }
+    .logo img {
+      max-width: 200px;
+      height: auto;
+    }
+    /* Writeup list styling */
+    .writeup-list {
+      list-style: none;
+      padding: 0;
+      margin: 30px 0;
+    }
+    .writeup-item {
+      background-color: #333;
+      border: 1px solid #00ff00;
+      border-radius: 5px;
+      margin: 15px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px;
+    }
+    .writeup-item img {
+      max-width: 50px;
+      margin-right: 20px;
+    }
+    .writeup-title {
+      flex: 1;
+      text-align: left;
+      font-size: 1.2em;
+      color: #00ff00;
+    }
+    .writeup-item button {
+      background-color: #222;
+      color: #00ff00;
+      border: 1px solid #00ff00;
+      padding: 8px 16px;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    .writeup-item button:hover {
+      background-color: #00ff00;
+      color: #222;
+    }
+    /* Footer note styling */
+    .footer-note {
+      margin-top: 40px;
+      font-size: 1.5em;
+      color: #00ff00;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Top centered TryHackMe logo -->
+    <div class="logo">
+      <img src="assets/images/THMlogo-gray_scale.png" alt="TryHackMe Logo">
+    </div>
+    
+    <!-- Vertical list of writeups -->
+    <ul class="writeup-list">
+        <li class="writeup-item">
+            <img src="assets/images/618b3fa52f0acc0061fb0172-1720456743344" alt="Writeup 3 Logo">
+            <div class="writeup-title">Crypto Failures</div>
+            <button onclick="window.location.href='/Crypto-Failures/solution'">View Writeup</button>
+          </li>
+      <li class="writeup-item">
+        <img src="assets/images/62a7685ca6e7ce005d3f3afe-1738131989982" alt="Writeup 2 Logo">
+        <div class="writeup-title">Decryptify</div>
+        <button onclick="window.location.href='/Decryptify/solution'">View Writeup</button>
+      </li>
+      <li class="writeup-item">
+        <img src="assets/images/618b3fa52f0acc0061fb0172-1718377390091" alt="Writeup 1 Logo">
+        <div class="writeup-title">The Sticker Shop</div>
+        <button onclick="window.location.href='/The-Sticker-Shop/solution'">View Writeup</button>
+      </li>
+    </ul>
+    
+    <!-- Bottom centered heading -->
+    <h2 class="footer-note">Other Websites and Writeups Coming Soon!</h2>
+  </div>
+</body>
+</html>
