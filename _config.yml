@@ -20,3 +20,34 @@ plugins:
 
 # Permalink style for cleaner URLs
 permalink: pretty
+
+# _config.yml
+
+# Site settings
+title: "TryHackMe CTF Writeups"
+description: "A curated collection of my TryHackMe CTF challenges and writeups."
+theme: jekyll-theme-hacker
+
+# Deployment settings for GitHub Pages
+baseurl: "/ctf-writeups-THM" # the subpath of your site
+url: "https://username.github.io" # replace 'username' with your actual GitHub username
+
+# Markdown processor
+markdown: kramdown
+
+kramdown:
+  auto_ids: true
+
+plugins:
+  - jekyll-seo-tag
+
+# Permalink style for cleaner URLs
+permalink: pretty
+
+# Allow Jekyll to process .webmanifest files with Liquid
+defaults:
+  - scope:
+      path: ""
+      ext: "webmanifest"
+    values:
+      layout: null
