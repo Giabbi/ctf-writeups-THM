@@ -43,11 +43,3 @@ plugins:
 
 # Permalink style for cleaner URLs
 permalink: pretty
-
-# Allow Jekyll to process .webmanifest files with Liquid
-defaults:
-  - scope:
-      path: ""
-      ext: "webmanifest"
-    values:
-      layout: null
