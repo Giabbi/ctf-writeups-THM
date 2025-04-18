@@ -9,8 +9,12 @@ Questions:
 - What is the content of the file /home/ubuntu/flag.txt?
 
 ## Table of contents
-
-## Initial Contact and Discovery
+- [Initial Contact and Discovery](#discovery)
+- [Bypassing the 2FA - First Flag](#2FA)
+- [Escalating our Privileges JSON Style - Second Flag](#JSON)
+- [intruder.py Script Breakedown](#intruder)
+- [Conclusion](#conclusion)
+## Initial Contact and Discovery {#Discovery}
 Alright amici, let's get to this! The first thing to do is to find on what port this website is hosted. Apparently THM people hate the standard port 80 or 8000 but love the port 1337 (I honestly can't tell you why). If this is your first rodeo and are not familiar with these wacky port assignments, you can use the following nmap command to discover where the website is hosted:
 ```bash
 nmap [MACHINE_IP] -p1-65535 -T4
@@ -18,6 +22,7 @@ nmap [MACHINE_IP] -p1-65535 -T4
 This is not the prettiest solution as it will take a few minutes because it is scanning <b>all</b> ports, but it gets the job done with these non conventional ports.
 
 ![Login page](images/login.png)
+
 Going to `http://[MACHINE_IP]:1337/`, we are greeted with a login page (unsurprisingly, since this challenge is in the Authentication module). The first thing I like to do with websites is to just take a look at what gifts the server has sent us. And what do you know, a comment slipped in the `<head>` tag that will help us a lot:
 ```html
 <!-- Dev Note: Directory naming convention must be hmr_DIRECTORY_NAME -->
@@ -53,7 +58,7 @@ ffuf returns some interesting endpoints, in particular `hrm_logs` seems allettan
 
 Now we can use this to perform a password reset, but when we go back to the reset page, we are greeted with a two factor authentication (2FA).
 
-## Bypassing the 2FA
+## Bypassing the 2FA {#2FA}
 Upon clicking on reset password, a 4 digit login code is sent to the `tester@hammer.thm` email. While four digits seems very crackable, there's a timer attached to the OTP of 180 seconds, which is not enough time. So, as we did before, let's dig into the page. 
 
 In the `<head>` tag of this page, we can find a javascript snippet that seems to be the manager of the timer logic, here it is for your reference: 
@@ -199,7 +204,7 @@ if __name__ == '__main__':
 ```
 After a few minutes we have succesfully reset tester's password and we can get our first flag from the dashboard! To do this just login with tester's email and, if you used my script, "MyN3w$tr0ngP@ss!". If this snippet looks a bit confusing to you, I have included a section at the bottom of this writeup that breaks this code down.
 
-## Escalating our Privileges JSON Style
+## Escalating our Privileges JSON Style {#JSON}
 After logging in... we get logged out.
 
 No your browser isn't broken (I thought mine was), whoever made this challenge added a maledetta surprise in the (you guessed it) `<head>` tag:
@@ -308,7 +313,7 @@ Welp I am sorry to tell you but JWTs don't go there, you should put them inside 
 
 ![final request](images/final_request.png)
 
-## intruder.py Script Breakedown
+## intruder.py Script Breakedown (#intruder)
 Alright so now that we don't have the anxiaty of our THM streak going away, let's take a moment to analyze the script I wrote for the first flag.
 
 intruder.py is broken down into four main sections:
@@ -346,7 +351,7 @@ The successful OTP
 
 By rotating the session every six attempts and abusing the infinite TTL, this script tried all the 4‑digit combinations in batches without ever hitting the rate limit, and then wraps up the attack by pushing a new password for the victim account. Evviva!
 
-## Conclusion
+## Conclusion {#conclusion}
 So, as always, what did we learn today?
 
 - We know that 2FA can be a good thing as long as best practices are followed, such as:
