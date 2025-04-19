@@ -1,3 +1,8 @@
+---
+title: "[NEW] Hammer"
+date: 2025-04-18
+banner: "assets/images/hammer.png"
+---
 <br>
 
 # Hammer
@@ -10,14 +15,15 @@ Questions:
 
 You can find this challenge at the following link: [TryHackMe Hammer](https://tryhackme.com/room/hammer)
 
-<br>
 
 ## Table of contents
 - [Initial Contact and Discovery](#discovery)
-- [Bypassing the 2FA - First Flag](#2FA)
+- [Bypassing the 2FA - First Flag](#bypassing)
 - [Escalating our Privileges JSON Style - Second Flag](#JSON)
 - [intruder.py Script Breakedown](#intruder)
 - [Conclusion](#conclusion)
+
+
 ## Initial Contact and Discovery {#Discovery}
 Alright amici, let's get to this! The first thing to do is to find on what port this website is hosted. Apparently THM people hate the standard port 80 or 8000 but love the port 1337 (I honestly can't tell you why). If this is your first rodeo and are not familiar with these wacky port assignments, you can use the following nmap command to discover where the website is hosted:
 ```bash
@@ -62,7 +68,7 @@ ffuf returns some interesting endpoints, in particular `hrm_logs` seems allettan
 
 Now we can use this to perform a password reset, but when we go back to the reset page, we are greeted with a two factor authentication (2FA).
 
-## Bypassing the 2FA {#2FA}
+## Bypassing the 2FA {#bypassing}
 Upon clicking on reset password, a 4 digit login code is sent to the `tester@hammer.thm` email. While four digits seems very crackable, there's a timer attached to the OTP of 180 seconds, which is not enough time. So, as we did before, let's dig into the page. 
 
 In the `<head>` tag of this page, we can find a javascript snippet that seems to be the manager of the timer logic, here it is for your reference: 

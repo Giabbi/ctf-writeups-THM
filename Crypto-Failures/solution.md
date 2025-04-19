@@ -1,6 +1,11 @@
+---
+title: "Crypto Failures"
+date: 2025-03-03
+banner: "assets/images/crypto_failures.png"
+---
 <br>
 
-# Crypto-Failures
+# Crypto Failures
 ## Challenge Description
 
 First exploit the encryption scheme in the simplest possible way, then find the encryption key.

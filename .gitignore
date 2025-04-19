@@ -1,0 +1,16 @@
+# Build output
+_site/
+
+# Bundler settings 
+vendor/bundle/
+
+# Jekyll cache & metadata
+.jekyll-cache/
+.jekyll-metadata
+
+# Sass cache 
+.sass-cache/
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db

@@ -1,6 +1,12 @@
+---
+title: "The Sticker Shop"
+date: 2024-11-29
+banner: "assets/images/sticker.png"
+
+---
 <br>
 
-# The Sticker Shop - TryHackMe Writeup
+# The Sticker Shop 
 
 ## Challenge Description
 
@@ -10,6 +16,8 @@ Your local sticker shop has finally developed its own webpage. They do not have 
 
 **Objective**:  
 Can you read the flag at `http://MACHINE_IP:8080/flag.txt`?
+
+You can find the original challenge at the following link: https://tryhackme.com/room/thestickershop
 ---
 
 ## Table of Contents

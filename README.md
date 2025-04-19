@@ -33,7 +33,26 @@ As for the technologies used, here's my current stack:
 ## Contributing
 While this repository is primarily for my personal learning journey, contributions and suggestions are welcome and encouraged! If you'd like to share your own insights or point out improvements, feel free to open an issue or create a pull request.
 
+To test my website on your local machine, follow these steps:
 
+Make sure you have the latest version of ruby and bundler nstalled, if you are on linux then run:
+```bash
+sudo apt update
+sudo apt install ruby-full
+gem install bundler
+```
+
+After that, clone my repository and run this to install dependencies:
+```bash
+bundle install
+```
+
+Lastly, run the following command for a preview of the website that updates every time you make a change:
+```bash
+bundle exec jekyll serve --livereload
+```
+
+Now you can find the website at `http://localhost:4000/ctf-writeups-THM/`
 
 ## License
 The writeups and content in this repository are licensed under the [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-nc-sa/4.0/).
