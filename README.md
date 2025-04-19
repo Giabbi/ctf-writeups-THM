@@ -1,57 +1,45 @@
 # TryHackMe CTF Writeups
 
-Benvenuti to my **TryHackMe CTF Writeups** repository! 🎉
+Benvenuti to my **CTF Writeups** repository! 
 
-This repository contains detailed writeups for Capture The Flag (CTF) challenges on [TryHackMe](https://tryhackme.com). Each writeup is designed to document my learning process, methodologies, and solutions while solving various challenges.
+This repository contains detailed writeups for Capture The Flag (CTF) challenges on [TryHackMe](https://tryhackme.com) (and more websites to follow!). Each writeup is designed to document my learning process, methodologies, and solutions while solving various challenges.
 
----
 
-## 🧩 What’s Inside
-- Step-by-step solutions to TryHackMe challenges.
-- Insights into cybersecurity concepts like XSS, SQL injection, network exploitation, and more.
-- Useful payloads, tools, and techniques applied during the challenges.
-- Key takeaways and lessons learned.
-- Some Italian stuff (bisogna portare avanti il tricolore 🇮🇹)
+## Website
+You can find the website hosted at the following link: https://giabbi.github.io/ctf-writeups-THM/
 
----
 
-## 📜 Structure of Writeups
-Each writeup follows this structure (and more):
+## Repo Structure and Tech Stack
+```bash
+.
+├── [WRITEUPS_FOLDERS]  # Markdown writeups for each CTF challenge
+├── _layouts/           # Jekyll HTML layout template (mainly for footer/header and CSS override)
+├── assets/             # Images, CSS, and static resources
+├── index.md            # Main landing page for the website
+├── _config.yml         # Site configuration and metadata
+└── README.md           # You're here!
+```
 
-1. **Introduction**: A brief description of the challenge and its objectives.
-2. **Steps to Solve**:
-   - Step-by-step walkthrough of the challenge.
-   - Screenshots and payloads where applicable.
-3. **Key Learnings**: What I learned or improved upon during the challenge.
-4. **Conclusion**: Final thoughts on the challenge, and the aforementioned Italian stuff (evviva!) 
+As for the technologies used, here's my current stack:
+- Jekyll – Static site generator with "Hacker" theme
 
----
+- GitHub Pages – Hosting
 
-## 🔧 Tools and Technologies
-Here are some tools and technologies I frequently use while solving challenges:
-- **Python**: For scripting custom servers and payloads.
-- **Burp Suite**: For intercepting and manipulating HTTP traffic.
-- **Wireshark**: For network analysis.
-- **Nmap**: For network reconnaissance.
-- **Custom Scripts**: Tailored for specific challenge requirements.
+- Markdown – All writeups are written in Markdown
 
----
+- HTML/CSS tweaks for layout and styling
 
-## 🤝 Contributing
-While this repository is primarily for my personal learning journey, contributions and suggestions are welcome! If you'd like to share your own insights or point out improvements, feel free to open an issue or create a pull request.
 
----
+## Contributing
+While this repository is primarily for my personal learning journey, contributions and suggestions are welcome and encouraged! If you'd like to share your own insights or point out improvements, feel free to open an issue or create a pull request.
 
-## 🚀 Next Steps
-1. Explore individual writeups in the repository.
-2. Apply the techniques and payloads to similar challenges on TryHackMe or other platforms.
-3. Hack all the things!!!
 
----
 
-## 📄 License
-This repository is licensed under the [MIT License](LICENSE). Feel free to use the content here for educational purposes.
+## License
+The writeups and content in this repository are licensed under the [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-nc-sa/4.0/).
 
----
+This means you're free to use, share, and remix the material for **non-commercial** purposes, as long as you:
+- Provide proper **attribution**.
+- Share any adapted material under the **same license**.
 
-**Hackerate miei amici, e portate in alto il nome del Gabibo! 🔒💻**
+Reposting or monetizing my writeups without permission is strictly forbidden.

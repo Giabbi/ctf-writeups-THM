@@ -8,6 +8,10 @@ Questions:
 - What is the flag value after logging in to the dashboard?
 - What is the content of the file /home/ubuntu/flag.txt?
 
+You can find this challenge at the following link: [TryHackMe Hammer](https://tryhackme.com/room/hammer)
+
+<br>
+
 ## Table of contents
 - [Initial Contact and Discovery](#discovery)
 - [Bypassing the 2FA - First Flag](#2FA)
