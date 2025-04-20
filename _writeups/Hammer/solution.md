@@ -1,7 +1,9 @@
 ---
+layout: default
 title: "[NEW] Hammer"
 date: 2025-04-18
 banner: "assets/images/hammer.png"
+permalink: /writeups/hammer
 ---
 <br>
 
@@ -31,7 +33,7 @@ nmap [MACHINE_IP] -p1-65535 -T4
 ```
 This is not the prettiest solution as it will take a few minutes because it is scanning <b>all</b> ports, but it gets the job done with these non conventional ports.
 
-![Login page](images/login.png)
+![Login page](Hammer/images/login.png)
 
 Going to `http://[MACHINE_IP]:1337/`, we are greeted with a login page (unsurprisingly, since this challenge is in the Authentication module). The first thing I like to do with websites is to just take a look at what gifts the server has sent us. And what do you know, a comment slipped in the `<head>` tag that will help us a lot:
 ```html
@@ -40,7 +42,7 @@ Going to `http://[MACHINE_IP]:1337/`, we are greeted with a login page (unsurpri
 
 Ottimo! Now we know how to properly fuzz this website, but before we get into that, let's take a look at that juicy "Forgot your password?" link
 
-![alt text](images/reset.png)
+![Reset Page](Hammer/images/reset.png)
 
 Nothing too fancy here, just a normal reset password form. Passing a random email doesn't seem to work, so we need one that's already registered, let's do some fuzzing!
 
@@ -100,7 +102,7 @@ Wait a second, ENHANCE!
 ```
 
 Mamma mia! The countdown is set on the <b>client</b> side! A quick look into burp confirms this behaviour:
-![burp reset](images/burp_reset.png)
+![burp reset](Hammer/images/burp_reset.png)
 
 We can easily set the `s` field to be a huge value and the OTP will never expire! Now that we have this we can start cracking, or so I thought.
 
@@ -242,7 +244,7 @@ To actually stay on the page for more than two seconds, we have a few options:
 
 After disarming this code snippet, we can finally take a closer look at the dashboard page. 
 
-![dashboard](images/dashboard.png)
+![dashboard](Hammer/images/dashboard.png)
 
 From burpsuite's repeater, I tried sending a few request via that command prompt. Of all the commands I tried, only `ls` worked, and returned the following:
 ```JSON
@@ -297,7 +299,7 @@ To download the file, all we need to do is to visit the /188ade1.key endpoint an
 All the JWT's you'll see in this writeup are created using [token.dev](https://token.dev/), but feel free to use whatever you want. 
 
 Here's the first token I crafted:
-![first token](images/first_token.png)
+![first token](Hammer/images/first_token.png)
 
 What I did here is:
 - Pasted the original JWT in the JWT String field
@@ -312,7 +314,7 @@ While the console doesn't let us do print working directory `pwd`, we can use th
 [192.168.1.50:45998] AH00037: Symbolic link not allowed or link target not accessible: /var/www/html/locked-down
 ```
 let's try this folder instead, here's the new token with the `"kid"` as `"/var/www/html/188ade1.key"`:
-![second token](images/second_token.png)
+![second token](Hammer/images/second_token.png)
 (Ignore the fact that it says "Jwt expired", if yours is expired too just extend the "exp" field)
 
 Now we just send this with burp's repeater and... command not allowed?
@@ -321,9 +323,9 @@ Beh amici I spent a little too much time debugging this, but this is a pretty du
 
 Welp I am sorry to tell you but JWTs don't go there, you should put them inside the `Authorization: Bearer` section for them to actually work. The cookie is tied to that annoying logout script, and has nothing to do with Auth. If you did everything correctly, you should be able to retrieve the second flag like this:
 
-![final request](images/final_request.png)
+![final request](Hammer/images/final_request.png)
 
-## intruder.py Script Breakedown (#intruder)
+## intruder.py Script Breakedown {#intruder}
 Alright so now that we don't have the anxiaty of our THM streak going away, let's take a moment to analyze the script I wrote for the first flag.
 
 intruder.py is broken down into four main sections:

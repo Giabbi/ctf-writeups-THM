@@ -1,7 +1,8 @@
 ---
 layout: default
-title: "Giabbi's CTF Writeups"
+title: "Giabbi's Writeups"
 ---
+
 
 <!-- HERO HEADER -->
 
@@ -36,7 +37,7 @@ title: "Giabbi's CTF Writeups"
       font-size: 1.2em;
       margin-bottom: 1em;
     ">
-    If it worked on the first try, I’d be suspicious.
+    If it worked on the first try, I’d be suspicious
   </p>
 </section>
 
@@ -46,7 +47,7 @@ title: "Giabbi's CTF Writeups"
 <section class="bio-section" style=" padding: 10px; border-radius: 6px; margin: 40px 0; color: #ccc;">
   <h2 style="color: #0f0; margin-bottom: 0.5em;">About Me</h2>
   <p>
-    Ciao bello! I’m <strong>Giabbi</strong> (short for Giancarlo Umberto Ambrosino). I’m an Italian-born cybersecurity enthusiast and future CS student at Carnegie Mellon University. I built this site to both track my journey and have some fun (and by fun I mean flexing my skills of course). Here's some stuff I like to do:
+    Ciao bello! I’m <strong>Giabbi</strong> (short for my name, Giancarlo Umberto). I’m an Italian-born cybersecurity enthusiast and future CS student at Carnegie Mellon University. I built this site to both track my journey and have some fun (and by fun I mean flexing my skills of course). Here's some stuff I like to do:
   </p>
   <ul style="margin-left: 1.2em; line-height: 1.6;">
     <li>Solving challenges on TryHackMe or similar websites and learning from every win (and every “wait, why did that work?”)</li>
@@ -89,7 +90,7 @@ title: "Giabbi's CTF Writeups"
       2. Sort by date descending
       3. Take the first 3
     {% endcomment %}
-    {% assign candidates = site.pages | where_exp:"p","p.banner" %}
+    {% assign candidates = site.writeups | where_exp:"p","p.banner" %}
     {% assign sorted     = candidates | sort: "date" | reverse %}
     {% assign featured   = sorted | slice: 0, 3 %}
 
@@ -133,7 +134,7 @@ title: "Giabbi's CTF Writeups"
   </div>
 
   <p style="text-align: center; margin-top: 1em;">
-    <a href="{{ '/all_writeups/' | relative_url }}"
+    <a href="{{ '/writeups/' | relative_url }}"
        style="color: #0f0; text-decoration: none; font-weight: bold;">
       See all write‑ups ⟶
     </a>
@@ -180,7 +181,7 @@ title: "Giabbi's CTF Writeups"
 <section id="contributing" style="margin: 40px 0; color: #ccc;">
   <h2 style="color: #0f0; margin-bottom: 0.5em;">Contributing</h2>
   <p>
-    While this repository is primarily for my personal learning journey, contributions and suggestions are welcome! If you'd like to share your own insights or point out improvements, feel free to open an issue or create a pull request.
+    While this repository is primarily for my personal learning journey, contributions and suggestions are welcome! If you'd like to share your own insights or point out improvements, feel free to open an issue or create a pull request. The repository containing this website can be found <a href="https://github.com/Giabbi/giabbis-writeups">here</a>
   </p>
 </section>
 

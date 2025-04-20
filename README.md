@@ -12,12 +12,12 @@ You can find the website hosted at the following link: https://giabbi.github.io/
 ## Repo Structure and Tech Stack
 ```bash
 .
-├── [WRITEUPS_FOLDERS]  # Markdown writeups for each CTF challenge
-├── _layouts/           # Jekyll HTML layout template (mainly for footer/header and CSS override)
-├── assets/             # Images, CSS, and static resources
-├── index.md            # Main landing page for the website
-├── _config.yml         # Site configuration and metadata
-└── README.md           # You're here!
+├── _writeups/         # Markdown writeups for each CTF challenge
+├── _layouts/          # Jekyll HTML layout template (mainly for footer/header and CSS override)
+├── assets/            # Images, CSS, and static resources
+├── index.md           # Main landing page for the website
+├── _config.yml        # Site configuration and metadata
+└── README.md          # You're here!
 ```
 
 As for the technologies used, here's my current stack:

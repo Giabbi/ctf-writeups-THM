@@ -1,8 +1,9 @@
 ---
+layout: default
 title: "The Sticker Shop"
 date: 2024-11-29
 banner: "assets/images/sticker.png"
-
+permalink: /writeups/the-sticker-shop
 ---
 <br>
 

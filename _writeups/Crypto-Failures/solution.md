@@ -1,7 +1,9 @@
 ---
+layout: default
 title: "Crypto Failures"
 date: 2025-03-03
 banner: "assets/images/crypto_failures.png"
+permalink: /writeups/crypto-failures
 ---
 <br>
 
@@ -31,10 +33,10 @@ It seems like TryHackMe is really into their crypto recently, well then let's ju
 
 The first thing, as always, is to visit the IP address from our browser to gather a sense of what the application is like. Unlike the last cryptography challenge we went over, this time the website seems to be much more "bare-bones":
 
-![index rendered](images/index.png)
+![index rendered](Crypto-Failures/images/index.png)
 
 Don't let that fool you however, my detective instincts are already starting to itch. In particular, why is "crypt" in "encryption" <b>bold</b>? To investigate, I decided to take a look at the HTML to see if there was anything useful, and sure there was!
-![index html](images/indexHTML.png)
+![index html](Crypto-Failures/images/indexHTML.png)
 ```html
 <!-- TODO remember to remove .bak files -->
 ```
