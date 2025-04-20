@@ -181,7 +181,7 @@ title: "Giabbi's Writeups"
 <section id="contributing" style="margin: 40px 0; color: #ccc;">
   <h2 style="color: #0f0; margin-bottom: 0.5em;">Contributing</h2>
   <p>
-    While this repository is primarily for my personal learning journey, contributions and suggestions are welcome! If you'd like to share your own insights or point out improvements, feel free to open an issue or create a pull request. The repository containing this website can be found <a href="https://github.com/Giabbi/giabbis-writeups">here</a>
+    While this repository is primarily for my personal learning journey, contributions and suggestions are welcome! If you'd like to share your own insights or point out improvements, feel free to open an issue or create a pull request. The repository containing this website can be found <a href="https://github.com/Giabbi/giabbis-writeups">here</a>.
   </p>
 </section>
 

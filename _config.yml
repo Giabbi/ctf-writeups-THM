@@ -17,6 +17,7 @@ kramdown:
 
 plugins:
   - jekyll-seo-tag
+  - jekyll-sitemap
 
 # Permalink style for cleaner URLs
 permalink: pretty
