@@ -1,36 +1,13 @@
 # _config.yml
 
 # Site settings
-title: "TryHackMe CTF Writeups"
-description: "A curated collection of my TryHackMe CTF challenges and writeups."
-theme: jekyll-theme-hacker
-
-baseurl: "/ctf-writeups-THM"
-
-url: "https://username.github.io"
-
-# Markdown processor
-markdown: kramdown
-
-kramdown:
-  auto_ids: true
-
-plugins:
-  - jekyll-seo-tag
-
-# Permalink style for cleaner URLs
-permalink: pretty
-
-# _config.yml
-
-# Site settings
-title: "TryHackMe CTF Writeups"
-description: "A curated collection of my TryHackMe CTF challenges and writeups."
+title: "Giabbi's Writeups"
+description: "A curated collection of my CTF challenges and writeups."
 theme: jekyll-theme-hacker
 
 # Deployment settings for GitHub Pages
-baseurl: "/ctf-writeups-THM" # the subpath of your site
-url: "https://username.github.io" # replace 'username' with your actual GitHub username
+baseurl: "/" 
+url: "https://giabbiswriteups.com" 
 
 # Markdown processor
 markdown: kramdown
