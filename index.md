@@ -14,35 +14,41 @@ title: "Giabbi's Writeups"
     text-align: center;
     padding: 60px 20px;
     color: #0f0;
-    background: url({{'/assets/images/banner.png' | relative_url }}) top center repeat-x;
+    background: url({{'/assets/images/banner.png' | relative_url }}) top center repeat;
     background-size: auto 260px;
-    
+    box-sizing: border-box;
   ">
   <div style="
       position: absolute;
-      inset: 0;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
       background: rgba(0, 0, 0, 0.75);
       z-index: 1;
-      
     "></div>
-  <h1 style="
+  <div style="
       position: relative;
       z-index: 2;
-      font-size: 2.5em;
-      margin-bottom: 0.5em;
+      max-width: 100%;
+      margin: 0 auto;
     ">
-    Giabbi's CTF Writeups
-  </h1>
-  <p style="
-      position: relative;
-      z-index: 2;
-      font-size: 1.2em;
-      margin-bottom: 1em;
-    ">
-    If it worked on the first try, I’d be suspicious
-  </p>
+    <h1 style="
+        font-size: min(2.5em, 10vw);
+        margin-bottom: 0.5em;
+        line-height: 1.2;
+      ">
+      Giabbi's CTF Writeups
+    </h1>
+    <p style="
+        font-size: min(1.2em, 5vw);
+        margin-bottom: 1em;
+        line-height: 1.4;
+      ">
+      If it worked on the first try, I'd be suspicious
+    </p>
+  </div>
 </section>
-
 
 
 <!-- BIO SECTION -->
@@ -235,51 +241,4 @@ title: "Giabbi's Writeups"
 
   document.addEventListener('DOMContentLoaded', adjustTHMBadge);
   window.addEventListener('resize',   adjustTHMBadge);
-</script>
-<script>
-  function adjustHero() {
-    const hero = document.querySelector('.hero');
-    if (!hero) return;
-
-    if (window.innerWidth < 768) {
-      // figure out how far the hero is from the viewport's left
-      const rect = hero.getBoundingClientRect();
-
-      // force a full‑bleed width & nudge it left by that amount
-      hero.style.position      = 'relative';
-      hero.style.left          = `-${rect.left}px`;
-      hero.style.width         = '100vw';
-      hero.style.marginLeft    = '0';
-      hero.style.backgroundSize= 'cover';
-    }
-  }
-
-  document.addEventListener('DOMContentLoaded', adjustHero);
-  window.addEventListener('resize',   adjustHero);
-</script>
-
-<script>
-  function adjustHeroText() {
-    const hero = document.querySelector('.hero');
-    if (!hero) return;
-
-    const elems = hero.querySelectorAll('h1, p');
-    elems.forEach(el => {
-      if (window.innerWidth < 768) {
-        el.style.position  = 'relative';
-        el.style.left      = '50%';
-        el.style.transform = 'translateX(-50%)';
-      } else {
-      }
-    });
-  }
-
-  document.addEventListener('DOMContentLoaded', () => {
-    adjustHero();
-    adjustHeroText();
-  });
-  window.addEventListener('resize', () => {
-    adjustHero();
-    adjustHeroText();
-  });
 </script>

@@ -39,21 +39,59 @@
 
   <body style="display: flex; flex-direction: column; min-height: 100vh; margin: 0;">
     <!-- Create a completely separate header to avoid theme styling -->
-    <div class="custom-header" style="background-color: #222; padding: 20px 0;">
-      <div class="navbar" style="display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 20px; height: 40px;">
+    <div class="custom-header" style="background-color: #222; padding: 10px 0;">
+      <div class="navbar" style="
+          display: flex; 
+          flex-wrap: wrap;
+          justify-content: space-between; 
+          align-items: center; 
+          max-width: 1200px; 
+          margin: 0 auto; 
+          padding: 5px 15px;
+          gap: 20px;
+        ">
         <!-- Left side: Brand -->
-        <div class="navbar-brand">
-          <a href="{{ '/' | relative_url }}" style="color: #00ff00; text-decoration: none; font-weight: bold; font-size: 1.5em;">Giabbi's Writeups</a>
+        <div class="navbar-brand" style="margin: 5px 0;">
+          <a href="{{ '/' | relative_url }}" style="
+              color: #00ff00; 
+              text-decoration: none; 
+              font-weight: bold; 
+              font-size: clamp(1.2em, 5vw, 1.5em);
+              text-align: left;
+              display: inline-block;
+            ">
+            <span style="display: inline;">Giabbi's</span>
+            <span style="display: none;" class="mobile-break"><br></span>
+            <span style="display: inline;"> Writeups</span>
+          </a>
         </div>
     
         <!-- Right side: Navigation items with inline styles to override theme -->
-        <div style="display: flex; align-items: center; gap: 15px;">
-          <a href="{{ '/writeups' | relative_url }}" style="color: #00ff00; background-color: #222; border: 1px solid #00ff00; padding: 8px 16px; text-decoration: none; border-radius: 4px; display: inline-block; text-align: center; line-height: 1.5; transition: background-color 0.3s, color 0.3s;" onmouseover="this.style.backgroundColor='#00ff00'; this.style.color='#000';" onmouseout="this.style.backgroundColor='#222'; this.style.color='#00ff00';">All Writeups</a>
-            </div>
-          </div>
+        <div style="display: flex; align-items: center;">
+          <a href="{{ '/writeups' | relative_url }}" style="
+              color: #00ff00; 
+              background-color: #222; 
+              border: 1px solid #00ff00; 
+              padding: 8px 16px; 
+              text-decoration: none; 
+              border-radius: 4px; 
+              display: inline-block; 
+              text-align: center; 
+              line-height: 1.5; 
+              transition: background-color 0.3s, color 0.3s;
+              white-space: nowrap;
+            " onmouseover="this.style.backgroundColor='#00ff00'; this.style.color='#000';" onmouseout="this.style.backgroundColor='#222'; this.style.color='#00ff00';">All Writeups</a>
         </div>
       </div>
     </div>
+  
+    <style>
+      @media (max-width: 600px) {
+        .mobile-break {
+          display: inline !important;
+        }
+      }
+    </style>
 
     <div class="container" style="flex: 1;">
       <section id="main_content">
