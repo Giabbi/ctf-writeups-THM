@@ -243,3 +243,22 @@ body .dropdown-menu li a {
 .structure-list {
   margin: 1rem 0 2rem 1.2rem;
 }
+
+/* ===== Responsive TryHackMe badge ===== */
+.stats iframe {
+  /* kill the inline transform on small screens */
+  transform: none !important;
+  width: 100%   !important;
+  height: auto  !important;
+}
+
+/* restore the “big” 1.5× badge on desktop */
+@media (min-width: 768px) {
+  .stats iframe {
+    transform: scale(1.5)           !important;
+    transform-origin: center top   !important;
+    width: 360px                    !important;
+    height: 120px                   !important;
+  }
+}
+

@@ -16,12 +16,14 @@ title: "Giabbi's Writeups"
     color: #0f0;
     background: url({{'/assets/images/banner.png' | relative_url }}) top center repeat-x;
     background-size: auto 260px;
+    
   ">
   <div style="
       position: absolute;
       inset: 0;
       background: rgba(0, 0, 0, 0.75);
       z-index: 1;
+      
     "></div>
   <h1 style="
       position: relative;
@@ -63,7 +65,7 @@ title: "Giabbi's Writeups"
 <!-- STATS SECTION -->
 <section class="stats" style="margin: 40px 0; color: #ccc;">
   <h2 style="color: #0f0; margin-bottom: 0.5em;">My Stats</h2>
-  <div style="width: 360px; margin: 0 auto;">
+<div style="width: 100%; max-width: 360px; margin: 0 auto; text-align: center;">
     <iframe
       src="https://tryhackme.com/api/v2/badges/public-profile?userPublicId=2870064"
       style="
@@ -209,3 +211,75 @@ title: "Giabbi's Writeups"
     Ed ora hackerate miei amici, e portate in alto il nome del Gabibbo!
   </p>
 </section>
+<script>
+  function adjustTHMBadge() {
+    const badge = document.querySelector('.stats iframe');
+    if (!badge) return;
+
+    badge.style.display = 'inline-block';
+    
+    if (window.innerWidth < 768) {
+      // Mobile: drop the scale, let it fill its container
+      badge.style.transform       = 'none';
+      badge.style.width           = '100%';
+      badge.style.height          = 'auto';
+      badge.style.transformOrigin = '';
+    } else {
+      // Desktop: restore 1.5× look
+      badge.style.transform       = 'scale(1.5)';
+      badge.style.transformOrigin = 'center top';
+      badge.style.width           = '360px';
+      badge.style.height          = '120px';
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', adjustTHMBadge);
+  window.addEventListener('resize',   adjustTHMBadge);
+</script>
+<script>
+  function adjustHero() {
+    const hero = document.querySelector('.hero');
+    if (!hero) return;
+
+    if (window.innerWidth < 768) {
+      // figure out how far the hero is from the viewport's left
+      const rect = hero.getBoundingClientRect();
+
+      // force a full‑bleed width & nudge it left by that amount
+      hero.style.position      = 'relative';
+      hero.style.left          = `-${rect.left}px`;
+      hero.style.width         = '100vw';
+      hero.style.marginLeft    = '0';
+      hero.style.backgroundSize= 'cover';
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', adjustHero);
+  window.addEventListener('resize',   adjustHero);
+</script>
+
+<script>
+  function adjustHeroText() {
+    const hero = document.querySelector('.hero');
+    if (!hero) return;
+
+    const elems = hero.querySelectorAll('h1, p');
+    elems.forEach(el => {
+      if (window.innerWidth < 768) {
+        el.style.position  = 'relative';
+        el.style.left      = '50%';
+        el.style.transform = 'translateX(-50%)';
+      } else {
+      }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    adjustHero();
+    adjustHeroText();
+  });
+  window.addEventListener('resize', () => {
+    adjustHero();
+    adjustHeroText();
+  });
+</script>
