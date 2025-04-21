@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Decryptify"
+title: "Decryptify | Walkthrough Writeup & Full Explanation"
 date: 2025-02-23
 banner: "assets/images/decryptify.png"
 permalink: /writeups/decryptify

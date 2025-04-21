@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "[NEW] Hammer"
+title: "Hammer | Walkthrough Writeup & Full Explanation"
 date: 2025-04-18
 banner: "assets/images/hammer.png"
 permalink: /writeups/hammer

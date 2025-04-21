@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "The Sticker Shop"
+title: "The Sticker Shop | Walkthrough Writeup & Full Explanation"
 date: 2024-11-29
 banner: "assets/images/sticker.png"
 permalink: /writeups/the-sticker-shop

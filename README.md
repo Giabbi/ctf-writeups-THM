@@ -1,4 +1,4 @@
-# TryHackMe CTF Writeups
+# Giabbi's Writeups
 
 Benvenuti to my **CTF Writeups** repository! 
 
@@ -6,7 +6,7 @@ This repository contains detailed writeups for Capture The Flag (CTF) challenges
 
 
 ## Website
-You can find the website hosted at the following link: https://giabbi.github.io/ctf-writeups-THM/
+You can find the website hosted at the following link: https://giabbiswriteups.com
 
 
 ## Repo Structure and Tech Stack
@@ -35,11 +35,11 @@ While this repository is primarily for my personal learning journey, contributio
 
 To test my website on your local machine, follow these steps:
 
-Make sure you have the latest version of ruby and bundler nstalled, if you are on linux then run:
+Make sure you have the latest version of ruby and bundler version 2.6.7 installed, if you are on linux then run:
 ```bash
 sudo apt update
 sudo apt install ruby-full
-gem install bundler
+gem install bundler:2.6.7
 ```
 
 After that, clone my repository and run this to install dependencies:
@@ -52,7 +52,7 @@ Lastly, run the following command for a preview of the website that updates ever
 bundle exec jekyll serve --livereload
 ```
 
-Now you can find the website at `http://localhost:4000/ctf-writeups-THM/`
+Now you can find the website at `http://localhost:4000`
 
 ## License
 The writeups and content in this repository are licensed under the [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-nc-sa/4.0/).

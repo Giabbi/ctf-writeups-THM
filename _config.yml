@@ -2,7 +2,7 @@
 
 # Site settings
 title: "Giabbi's Writeups"
-description: "A curated collection of my CTF writeups."
+description: "It's not cheating if you just take a peak!"
 theme: jekyll-theme-hacker
 
 # Deployment settings for GitHub Pages
@@ -26,3 +26,10 @@ collections:
   writeups:
     output: true
     permalink: /writeups/:path/
+
+exclude:
+  - README.md
+  - LICENSE
+  - Gemfile
+  - Gemfile.lock
+

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Crypto Failures"
+title: "Crypto Failures | Walkthrough Writeup & Full Explanation"
 date: 2025-03-03
 banner: "assets/images/crypto_failures.png"
 permalink: /writeups/crypto-failures

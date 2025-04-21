@@ -83,18 +83,20 @@ title: "Giabbi's Writeups"
 <!-- FEATURED CHALLENGES -->
 <section id="featured" style="margin: 40px 0; text-align:center;">
   <h2 style="color: #0f0; margin-bottom: 1em;">Featured Challenges</h2>
-  <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 100px; ">
+    <div style="display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+                gap: 100px;">
 
-    {% comment %}
-      1. Filter to pages that have a banner
-      2. Sort by date descending
-      3. Take the first 3
-    {% endcomment %}
-    {% assign candidates = site.writeups | where_exp:"p","p.banner" %}
-    {% assign sorted     = candidates | sort: "date" | reverse %}
-    {% assign featured   = sorted | slice: 0, 3 %}
+      {% comment %}
+        1. Filter to pages that have a banner
+        2. Sort by date descending
+        3. Take the first 3
+      {% endcomment %}
+      {% assign candidates = site.writeups | where_exp:"p","p.banner" %}
+      {% assign sorted     = candidates  | sort: "date" | reverse %}
+      {% assign featured   = sorted      | slice: 0, 3 %}
 
-    {% for page in featured %}
+      {% for page in featured %}
       <div style="
           padding: 20px;
           border: 1px solid #333;
@@ -102,11 +104,26 @@ title: "Giabbi's Writeups"
           text-align: center;
           background-color: #1a1a1a;
         ">
-        <h3 style="margin-bottom: 0.5em; color: #fff;">{{ page.title }}</h3>
+        <h3 style="margin-bottom: 0.5em; color: #fff;">
+          {% if forloop.first %}
+            <span style="
+                color: #0f0;
+                font-size: 1em;          
+                font-weight: bold;
+                margin-right: 0.3em;     
+              ">
+              [NEW]
+            </span>
+          {% endif %}
+          {{ page.title 
+            | split: "|" 
+            | first 
+            | strip 
+          }}
+        </h3>
 
-        <!-- show the banner above the button -->
         <img
-          src="{{ page.banner | relative_url}}"
+          src="{{ page.banner | relative_url }}"
           alt="{{ page.title }} banner"
           style="
             width: 100%;
@@ -116,22 +133,23 @@ title: "Giabbi's Writeups"
           " />
 
         <a href="{{ page.url | relative_url }}"
-           style="
-             color: #0f0;
-             background-color: #111;
-             padding: 8px 16px;
-             text-decoration: none;
-             display: inline-block;
-             border: 1px solid #0f0;
-             border-radius: 4px;
-           "
-           onmouseover="this.style.backgroundColor='#0f0'; this.style.color='#000';"
-           onmouseout="this.style.backgroundColor='#111'; this.style.color='#0f0';">
+          style="
+            color: #0f0;
+            background-color: #111;
+            padding: 8px 16px;
+            text-decoration: none;
+            display: inline-block;
+            border: 1px solid #0f0;
+            border-radius: 4px;
+          "
+          onmouseover="this.style.backgroundColor='#0f0'; this.style.color='#000';"
+          onmouseout="this.style.backgroundColor='#111'; this.style.color='#0f0';">
           Read Write‑up ⟶
         </a>
       </div>
     {% endfor %}
   </div>
+
 
   <p style="text-align: center; margin-top: 1em;">
     <a href="{{ '/writeups/' | relative_url }}"
