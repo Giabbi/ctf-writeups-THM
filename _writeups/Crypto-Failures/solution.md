@@ -288,7 +288,7 @@ hashcat -m 1500 -a 3 hash.txt "****?1?1?1?1" -1 abcdefghijklmnopqrstuvwxyzABCDEF
 ```
 By doing this, we now have the first characters of the next block in previous cookie (the one with the 8 character `User-Agent`). You see where this is going? By alternating cracking between the two cookies, one with 8 character of `User-Agent` and the other with 4, we can cut in half the characters we need to crack!
 
-Now all we have to do is rinse and repeat this process until we have the full flag. Personally, I did this process by hand, but I am sure there afre tools or scripts out there that can automate this process. If you know such thing feel free to open an issue, and I will review it as fast as possible.
+Now all we have to do is rinse and repeat this process until we have the full flag. Personally, I did this process by hand, but I am sure there are tools or scripts out there that can automate this process. If you know such thing feel free to open an issue, and I will review it as fast as possible.
 
 After a bit of hashcat, we finally have our second flag!
 
