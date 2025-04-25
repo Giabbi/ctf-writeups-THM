@@ -44,7 +44,12 @@ Don't let that fool you however, my detective instincts are already starting to 
 
 If you visit ```http://[MACHINE_IP]/index.php.bak``` we get a very interesting file. Probably however the challenge wanted us to find this by enumeration, so I will leave the ffuf command if you wanna do it the "right" way.
 ```bash
-ffuf -w /usr/share/wordlists/seclists/Discovery/Web-CDecrypting Encrypted Secret - Second Flag
+ffuf -w /usr/share/wordlists/seclists/Discovery/Web-Content/big.txt http://[MACHINE_IP]/FUZZ
+```
+
+Let's take a peek into this file:
+
+```php
 <?php
 include('config.php');
 
@@ -141,6 +146,7 @@ if ( isset($_COOKIE['secure_cookie']) && isset($_COOKIE['user']))  {
 
 }
 ?>
+
 ```
 This seems pretty scary at first, so let's break down the sections that we care about.
 
@@ -166,7 +172,13 @@ As I said before, the key to this challenge is the fact that DES breaks our ciph
 YVxrXiItMvl4.YVXAfPSj79DCsYVMOFnVbr4PoIYVp7zS9yqUwPsYVwm7yUPcW6XMYV6jUWQdWxwqsYVn%2Fwry9OoIKsYVS1TOZVTMVIQYV5KB0kA8z2cMYVmBxRMGfPAtEYVfhV8vlgf3qMYVLWgc8OnNTBAYVOtDQQLlcYi.YVaXxTxsR8rg2YVuwQ11nXRn0.YVtHlTRlWDnJkYVdJ2TKN0h.ikYVRfA9fh205ZUYVmDZo%2Fdju%2FT2YV5maG%2FQ8tA0gYV9Mi9FghWBlQ
 ```
 Do you see the pattern here? How about now?
-> <u><b>YV</u></b>xrXiItMvl4.<b><u>YV</b></u>XAfPSj79DCs<b><u>YV</b></u>MOFnVbr4PoI<b><u>YV</b></u>p7zS9yqUwPs<b><u>YV</b></u>wm7yUPcW6XM etc...
+
+> <u><b>YV</b></u>xrXiItMvl4.
+<u><b>YV</b></u>XAfPSj79DCs
+<u><b>YV</b></u>MOFnVbr4PoI
+<u><b>YV</b></u>p7zS9yqUwPs
+<u><b>YV</b></u>wm7yUPcW6XM etc…
+
 
 These 13 character blocks are equivalent to the 8 characters we saw in the for loop a while back. Amici mie, grab your hammers because it is time to forge!
 
