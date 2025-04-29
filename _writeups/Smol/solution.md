@@ -109,4 +109,19 @@ And we should see:
 
 Great! Now we are this close to owning the machine, but wait! I know what you're thinking, you wanna go to revshells.com and plug a shell in there. Well, that's what I tried, but there must be some restriction on this backdoor since doing so results into nothing.
 
-We need to get a bit smarter amico mio, after trying some 
+We need to get a bit smarter amico mio, after trying some commands one caught my eye:
+```bash
+# Opens a web server at http:/smol.thm:9000 at the root directory, DON'T include this comment in the actual command
+python -m http.server 9000 -d / 
+```
+Putting this in the `?cmd=` field makes the page hand, which means it's working! Now we can get a look of the filesystem in the machine.
+
+Now this doesn't allow us to spawn a reverse shell **yet**, but it does give us some intel.
+
+For example, one thing I tried was to download [a reverseshell from pentestmonkey](https://github.com/pentestmonkey/php-reverse-shell/blob/master/php-reverse-shell.php) and then access it at `http://smol.thm/wp-admin/php-reverse-shell.php`, but this just returned a blank page.
+
+From the python server, I could see that the reverse shell file was blank (just click on it and you'll see downloaded a 0 byte file), which means that `www-data` doesn't have write privileges in `/var/www/wordpress/wp-admin`.
+
+Let's find another directory, `/tmp/` should be a good guess. And it works!
+
+![Reverse shells on /tmp](images/tmp.png)
