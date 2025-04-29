@@ -26,7 +26,7 @@ As always, you can find the challenge at the following link: [TryHackMe Smol](ht
 - Escalating our privileges - Second Flag
 - Takeaways: to WP or not WP?
     - First Plugin Analysis
-    - Second Plugin Analysis
+    - [Second Plugin Analysis](#second-plugin-analysis)
 
 ## Exploring the Vulnerable Plugins
 Before we dive in, is it Christmas? It's a bit confusing (and intimidaing) to see so many hints in the description of a **medium** difficulty challenge, but hey I won't complain.
@@ -96,5 +96,17 @@ http://www.smol.thm/wp-content/plugins/jsmol2wp/php/jsmol.php?isform=true&call=g
 Why that path? Well amico mio here's what we know about the app:
 - By default Hello Dolly is stored in a file called hello.php
 - This file is located, by default, in wp-content, which is two directories above JSmol2WP
-- Hence, we need to climb to directories `../../` to get to the file we need!
+- Hence, we need to climb two directories `../../` to get to the file we need!
 
+The backdoor here is a little less straight forward, as it is a custom one that we can't just google like the last one. If you want an in-depth explanation of how this works, [jump to the end of the writeup for an explenation](#second-plugin-analysis). If you are here just for that sweet flag, keep reading.
+
+The backdoor in `Hello Dolly` allows us to execute arbitrary commands on the host machine. We can do this from wp-admin by appending at the end of the page `?cmd=[COMMAND]`. For example we can do:
+```text
+http://www.smol.thm/wp-admin/edit.php?cmd=whoami
+```
+And we should see:
+**IMAGE PLACEHOLDER**
+
+Great! Now we are this close to owning the machine, but wait! I know what you're thinking, you wanna go to revshells.com and plug a shell in there. Well, that's what I tried, but there must be some restriction on this backdoor since doing so results into nothing.
+
+We need to get a bit smarter amico mio, after trying some 
