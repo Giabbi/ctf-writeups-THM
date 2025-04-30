@@ -23,7 +23,7 @@ As always, you can find the challenge at the following link: [TryHackMe Smol](ht
     - First Vulnerable Plugin
     - Second Vulnerable Plugin
 - Gaining a Foothold of the Machine - First Flag
-- Escalating our privileges - Second Flag
+- Escalating One User at a Time - Second Flag
 - Takeaways: to WP or not WP?
     - First Plugin Analysis
     - [Second Plugin Analysis](#second-plugin-analysis)
@@ -104,8 +104,8 @@ The backdoor in `Hello Dolly` allows us to execute arbitrary commands on the hos
 ```text
 http://www.smol.thm/wp-admin/edit.php?cmd=whoami
 ```
-And we should see:
-**IMAGE PLACEHOLDER**
+And we should see on the up left corner:
+![proof of concept of the backdoor](images/poc.png)
 
 ## Gaining a Foothold of the Machine - First Flag
 
@@ -228,7 +228,7 @@ cd
 cat user.txt
 ```
 
-## Escalating our privileges - Second Flag
+## Escalating One User at a Time - Second Flag
 Diego doesn't seem to be very privileged either, but he does seem to have more than `www-data`. For this reason let's run `linpeas.sh` again to see if there's anything new.
 
 ```bash
@@ -303,4 +303,15 @@ User xavi may run the following commands on smol:
 ```
 **ALL** commands??!
 
-Yes amici, now we can just do
+Yes amici, now we can just do:
+```bash
+sudo su
+```
+
+And we are root! Now head over to the home directory to get your flag:
+```bash
+cd
+cat root.txt
+```
+
+## Takeaways: to WP or not WP?
